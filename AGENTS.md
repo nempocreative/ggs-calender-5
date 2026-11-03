@@ -10,3 +10,6 @@
 <!-- LOVABLE:END -->
 
 Service content briefs must resolve to the bundled service catalog and feed both idea slides and weekly rotations, so displayed topics cannot diverge from menu data.
+
+Preserve the existing 1280×720 deck stage and scaling system; semantic slide typography tokens in src/styles.css control headings and key text consistently without resizing compact table or footer text.
+Show the five core pillars separately from the Japan-period supplement; supplemental content must not add rows beyond the core pillar layout's space budget.
