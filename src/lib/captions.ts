@@ -20,16 +20,21 @@ export const captions: Record<Brand, CaptionGuide[]> = {
   ],
 };
 
-export const hashtags: Record<Brand | "japan", { core: string[]; rotate: string[] }> = {
+// Hashtag. Salon berada di Garut, jadi tag lokal selalu dipakai di setiap posting
+// supaya muncul di pencarian pelanggan sekitar. [lokasi] diisi kecamatan/kota.
+export const hashtags: Record<Brand | "japan", { local: string[]; core: string[]; rotate: string[] }> = {
   beauty: {
+    local: ["#Garut", "#SalonGarut", "#SalonKecantikanGarut", "#ExploreGarut", "#GarutHits"],
     core: ["#GGSBeauty", "#GGSSalon", "#SalonKecantikan", "#MeTime"],
     rotate: ["#NailArt", "#Creambath", "#HairColor", "#KeratinTreatment", "#BodyMassage", "#ManiPedi", "#SalonTreatment", "#FYP"],
   },
   hair: {
+    local: ["#Garut", "#BarbershopGarut", "#BarberGarut", "#PotongRambutGarut", "#ExploreGarut"],
     core: ["#GGSHairStudio", "#GroomingIsBetter", "#Barbershop", "#MenGrooming"],
     rotate: ["#PotongRambutPria", "#Perming", "#HairColorMen", "#Highlight", "#PaketGanteng", "#Creambath", "#BarberLife", "#FYP"],
   },
   japan: {
+    local: ["#Garut", "#ExploreGarut"],
     core: ["#GGSGoesToJapan", "#JapanDiaries", "#BodyLotionToneUp"],
     rotate: ["#Tokyo", "#OwnerStory", "#TravelVlog", "#SelfCare", "#FYP"],
   },
@@ -37,7 +42,8 @@ export const hashtags: Record<Brand | "japan", { core: string[]; rotate: string[
 
 export const captionRules = [
   "Hook di baris pertama (maks. 1 kalimat) — muncul sebelum \"…more\".",
-  "Pakai 4 hashtag inti + 3–4 rotasi sesuai layanan; total 7–8 hashtag.",
+  "Selalu buka dengan 2 hashtag lokal (Garut), lalu 3 inti + 3 rotasi — total 8.",
+  "Sebutkan lokasi di caption: GGS Beauty / GGS Hair Studio, [lokasi], Garut.",
   "Harga, promo, dan manfaat produk hanya dari info salon / label kemasan.",
-  "Minggu Jepang: tambahkan hashtag Japan di akun yang sedang posting.",
+  "Minggu Jepang: hashtag lokal tetap dipakai, tambahkan hashtag Japan.",
 ];
