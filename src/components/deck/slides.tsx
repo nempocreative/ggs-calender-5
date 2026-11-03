@@ -116,7 +116,7 @@ function StatsSlide() {
       <div className="absolute bottom-[110px] left-[76px] flex w-[1128px] items-center border-l-[10px] border-ggs-pink bg-ggs-pink-soft px-8 py-6">
         <p className="text-[16px] leading-relaxed text-ggs-ink">
           Dua akun, dua kepribadian: GGS Beauty putih-pink, GGS Hair Studio hitam-gold. Podcast Ngopi Sore tayang
-          tiap Jumat jam 16.00 — satu episode penuh per minggu, lalu dipotong jadi klip.
+          tiap Jumat jam 16.00 — libur 18–24 November (pemilik di luar negeri).
         </p>
       </div>
       <Footer n={2} />
@@ -288,7 +288,9 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
         <WeekTable sched={light ? schedBeauty : schedHair} start={w * 7} light={light} />
       </div>
       <div className={`absolute bottom-[26px] left-[64px] text-[12px] ${light ? "text-ggs-gray" : "text-white/40"}`}>
-        Podcast Ngopi Sore tiap Jumat jam 16:00 • topik diputar per layanan • harga/promo wajib dikonfirmasi
+        {w === 2
+          ? "Podcast libur 18–24 November (pemilik di luar negeri) • jadwal video dan promo tetap jalan"
+          : "Podcast Ngopi Sore tiap Jumat jam 16:00 • topik diputar per layanan • harga/promo wajib dikonfirmasi"}
       </div>
     </Stage>
   );
