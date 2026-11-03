@@ -42,3 +42,13 @@ describe("Acuan GGS Talk", () => {
     expect(talkClips.length).toBe(3);
   });
 });
+
+import { episodeFlow } from "./talk";
+test("every aired episode has its own 5-step flow from buka to nutup", () => {
+  for (const b of ["beauty", "hair"] as const)
+    for (const e of talkEpisodes[b]) {
+      const f = episodeFlow(e);
+      expect(f.map((s) => s.name)).toEqual(["Buka", "Awal cerita", "Di balik layar", "Momen & tips", "Nutup"]);
+      expect(f.every((s) => s.q.endsWith("?"))).toBe(true);
+    }
+});

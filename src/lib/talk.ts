@@ -107,6 +107,7 @@ export type TalkEpisode = { day: number; air: string; topic: string; service: st
 
 // Nama tamu diambil dari layanan yang dibahas, jadi tidak perlu dikarang.
 function guestFor(brand: Brand, service: string) {
+  if (brand === "hair" && /paket/i.test(service)) return "Barber";
   if (/kuku|nail|press|mani|pedi|cat eye/i.test(service)) return "Nail artist";
   if (/totok|wajah|masker|facial/i.test(service)) return "Terapis wajah";
   if (/massage|pijat|reflexy|lulur|scrub|body/i.test(service)) return "Terapis tubuh";
@@ -132,3 +133,70 @@ export const talkEpisodes: Record<Brand, TalkEpisode[]> = {
   beauty: build("beauty"),
   hair: build("hair"),
 };
+
+// ---- Alur per episode: dari buka sampai nutup, satu pertanyaan pemantik per tahap ----
+export type EpisodeStep = { t: string; name: string; q: string; note: string };
+
+const STEPS = ["0–3 mnt", "3–8 mnt", "8–15 mnt", "15–22 mnt", "22–25 mnt"];
+const NAMES = ["Buka", "Awal cerita", "Di balik layar", "Momen & tips", "Nutup"];
+
+// Alur khusus untuk topik yang tayang; topik lain pakai alur umum di bawah.
+const FLOWS: Record<string, [string, string][]> = {
+  "Cerita di balik nail art": [
+    ["Kuku siapa yang pertama kali kamu cat di GGS?", "Ngopi dulu, kenalan sama nail artist."],
+    ["Dulu belajar nail art dari mana, gagal berapa kali?", "Biarkan cerita awalnya panjang."],
+    ["Satu set cat eye itu prosesnya apa aja, yang orang nggak lihat?", "Tunjukin kuku/alat ke kamera."],
+    ["Request paling unik apa? Terus biar awet di rumah gimana?", "Momen lucu = bahan klip 2."],
+    ["Buat yang baru mau coba, mulai dari model apa?", "Ajak booking di Garut + bocoran episode depan."],
+  ],
+  "Self care itu bukan kemewahan": [
+    ["Kapan terakhir kamu bener-bener istirahat?", "Pembuka santai, saling cerita."],
+    ["Kenapa banyak yang ngerasa self care itu cuma buat yang mampu?", "Kejar contoh nyata dari tamu."],
+    ["45 menit totok wajah + masker itu sebenarnya ngapain aja?", "Jelasin proses, tanpa klaim medis."],
+    ["Pelanggan biasanya ngomong apa setelah selesai?", "Plus 2 kebiasaan kecil self care di rumah."],
+    ["Kalau cuma punya sejam seminggu, mending dipakai buat apa?", "Ajak mampir + episode depan."],
+  ],
+  "Rambut berwarna, rawat bagaimana?": [
+    ["Warna rambut pertama kamu dulu apa? Nyesel nggak?", "Buka dengan cerita lucu."],
+    ["Biasanya pelanggan datang bawa foto referensi kayak apa?", "Bahas ekspektasi vs realita."],
+    ["Dari konsultasi sampai bilas, apa yang dicek stylist?", "Tunjukin palet/hasil kalau ada."],
+    ["Kesalahan perawatan paling sering setelah warnain?", "2–3 tips rawat warna di rumah."],
+    ["Warna apa yang lagi banyak dipilih di Garut?", "Ajak konsultasi + episode depan."],
+  ],
+  "Perming di rambut pria": [
+    ["Pertama kali denger cowok perming, reaksi kamu gimana?", "Ngopi dulu, obrol ringan."],
+    ["Pelanggan cowok yang pertama berani perming siapa ceritanya?", "Biarin tamu cerita detail."],
+    ["Biar hasilnya natural, apa yang ditentuin sebelum mulai?", "Tunjukin contoh hasil."],
+    ["Komentar temen atau pacar paling lucu setelah perming?", "Plus cara rawat biar keriting awet."],
+    ["Cowok yang masih ragu, kamu saranin mulai dari mana?", "Ajak booking di Garut + episode depan."],
+  ],
+  "Kenapa Paket GPS banyak diambil": [
+    ["Nama Ganteng Pisan Sob itu idenya dari mana?", "Pembuka santai, boleh ketawa."],
+    ["Biasanya yang ambil paket ini cowok kayak gimana?", "Kejar cerita pelanggan tetap."],
+    ["30 menit itu urutannya apa aja, dari potong sampai tonik?", "Jelasin alur paket di kursi."],
+    ["Bagian mana yang bikin pelanggan sampai ketiduran?", "Momen lucu + tips rapi seminggu."],
+    ["Kapan waktu paling pas ambil paket GPS?", "Ajak booking + episode depan."],
+  ],
+  "Warna rambut pria, mulai dari mana": [
+    ["Kamu sendiri pernah warnain rambut? Warna apa?", "Buka dengan cerita pribadi."],
+    ["Kenapa banyak cowok takut coba warna?", "Bahas mitos yang sering didengar."],
+    ["Tanpa bleaching, warna apa yang bisa dan nggak bisa?", "Jujur soal batasnya."],
+    ["Biar nggak cepat pudar, apa yang dihindari?", "2–3 tips rawat warna."],
+    ["Buat kerja kantoran, warna yang aman apa?", "Ajak konsultasi + episode depan."],
+  ],
+};
+
+function genericFlow(e: TalkEpisode): [string, string][] {
+  return [
+    [`Kenapa hari ini pengen bahas ${e.topic.toLowerCase()}?`, "Ngopi dulu, kenalan sama tamu."],
+    [`Pertama kali kenal ${e.service} gimana ceritanya?`, "Biarkan cerita awalnya panjang."],
+    ["Bagian proses yang orang nggak lihat itu apa?", "Tunjukin alat atau hasil."],
+    ["Kesalahan paling sering pelanggan, dan tipsnya?", "Momen lucu = bahan klip."],
+    ["Buat yang baru mau coba, mulai dari mana?", "Ajak booking di Garut + episode depan."],
+  ];
+}
+
+export function episodeFlow(e: TalkEpisode): EpisodeStep[] {
+  const f = FLOWS[e.topic] ?? genericFlow(e);
+  return f.map(([q, note], i) => ({ t: STEPS[i], name: NAMES[i], q, note }));
+}
