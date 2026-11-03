@@ -54,34 +54,35 @@ function Kicker({ children, color }: { children: ReactNode; color: "pink" | "gol
 // ---- 1. Cover ----
 function CoverSlide() {
   return (
-    <Stage dark>
+    <Stage>
       <div className="absolute top-0 left-0 h-full w-[18px] bg-ggs-pink" />
       <div className="absolute top-0 right-0 h-full w-[18px] bg-ggs-gold" />
-      <div className="absolute top-[130px] left-[90px] text-[17px] tracking-[0.3em] text-ggs-gold">
+      <div className="absolute top-0 right-[18px] flex h-[360px] w-[382px] flex-col items-center justify-center gap-5 bg-ggs-pink-soft">
+        <RoundLogo src={logoBeauty} size={112} ring="ring-ggs-pink/30" />
+        <span className="text-[13px] font-bold tracking-[0.25em] text-ggs-pink">GGS BEAUTY</span>
+      </div>
+      <div className="absolute top-[360px] right-[18px] flex h-[360px] w-[382px] flex-col items-center justify-center gap-5 bg-ggs-dark">
+        <RoundLogo src={logoHair} size={112} ring="ring-ggs-gold/40" />
+        <span className="text-[13px] font-bold tracking-[0.25em] text-ggs-gold">GGS HAIR STUDIO</span>
+      </div>
+      <div className="absolute top-[150px] left-[90px] text-[17px] tracking-[0.3em] text-ggs-pink">
         RENCANA KONTEN 4 MINGGU • 4 NOV – 1 DES 2026
       </div>
-      <h1 className="absolute top-[180px] left-[90px] text-[86px] leading-none font-bold text-white" style={HEAD}>
+      <h1 className="absolute top-[200px] left-[90px] text-[86px] leading-none font-bold text-ggs-ink" style={HEAD}>
         Jadwal Konten
       </h1>
-      <div className="absolute top-[320px] left-[90px] text-[40px]" style={HEAD}>
+      <div className="absolute top-[340px] left-[90px] text-[40px]" style={HEAD}>
         <span className="font-bold text-ggs-pink">GGS Beauty</span>
-        <span className="text-white/40"> × </span>
+        <span className="text-ggs-gray/50"> × </span>
         <span className="font-bold text-ggs-gold">GGS Hair Studio</span>
       </div>
-      <div className="absolute top-[410px] left-[90px] text-[18px] text-white/50">
+      <div className="absolute top-[430px] left-[90px] h-[3px] w-[120px] bg-ggs-gold" />
+      <div className="absolute top-[470px] left-[90px] text-[18px] text-ggs-gray">
         3 konten per hari • Maksimal 2 video • 2 akun, 1 strategi
       </div>
-      <div className="absolute top-[540px] left-[90px] flex items-center gap-10">
-        <div className="flex items-center gap-4">
-          <RoundLogo src={logoBeauty} size={90} />
-          <span className="text-[14px] tracking-[0.2em] text-ggs-pink">GGS BEAUTY</span>
-        </div>
-        <div className="flex items-center gap-4">
-          <RoundLogo src={logoHair} size={90} />
-          <span className="text-[14px] tracking-[0.2em] text-ggs-gold">GGS HAIR STUDIO</span>
-        </div>
+      <div className="absolute bottom-[50px] left-[90px] text-[14px] tracking-[0.15em] text-ggs-gray">
+        NOVEMBER 2026
       </div>
-      <div className="absolute right-[90px] bottom-[50px] text-[14px] text-white/40">November 2026</div>
     </Stage>
   );
 }
