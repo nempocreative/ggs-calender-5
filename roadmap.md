@@ -7,3 +7,5 @@
 - [x] Use circular logos, never square logo frames.
 - [x] Detailkan ide konten spesifik per pilar sesuai layanan + slide alur produksi (deck web).
 - [x] Ambil daftar layanan dari GitHub dan sesuaikan ide serta jadwal konten (terverifikasi lewat preview).
+- [x] Tambah acuan hook (hal. 21–22) dan acuan caption & hashtag lokal Garut (hal. 23–24); layout dicek tanpa overflow.
+- [ ] Buat ulang PPTX & PDF dari deck terbaru (25 slide) — menunggu konfirmasi pengguna.

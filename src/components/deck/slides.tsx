@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
 import { PILLARS, TARGET, JAPAN_DAYS, JAPAN_TARGET, SLOTS, days, schedBeauty, schedHair, schedJapan, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
 import { captions, captionRules, hashtags } from "@/lib/captions";
+import { hookBank, hookFormulas, hookRules, japanHooks } from "@/lib/hooks";
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
 import salonBeauty from "@/assets/salon_beauty.jpg";
@@ -595,6 +596,59 @@ function CaptionSlide({ brand, num }: { brand: Brand; num: number }) {
   );
 }
 
+// ---- Hook guide ----
+function HookSlide({ brand, num }: { brand: Brand; num: number }) {
+  const b = brand === "beauty";
+  const accent = b ? "text-ggs-pink" : "text-ggs-gold";
+  const ink = b ? "text-ggs-ink" : "text-primary-foreground";
+  const muted = b ? "text-ggs-gray" : "text-primary-foreground/65";
+  const line = b ? "border-border" : "border-primary-foreground/15";
+  const chip = b ? "bg-ggs-pink-soft text-ggs-pink" : "bg-ggs-gold-soft text-ggs-ink";
+  return (
+    <Stage dark={!b}>
+      <div className="absolute top-[42px] left-[64px]">
+        <Kicker color={b ? "pink" : "gold"}>{b ? "GGS BEAUTY" : "GGS HAIR STUDIO"} • ACUAN HOOK</Kicker>
+      </div>
+      <h2 className={`slide-title absolute top-[80px] left-[64px] font-bold ${ink}`} style={HEAD}>Hook 3 Detik Pertama</h2>
+      <div className="absolute top-[160px] left-[64px] w-[760px]">
+        {hookBank[brand].map((h) => (
+          <div key={h.pillar} className={`grid h-[88px] grid-cols-[170px_1fr] items-center gap-5 border-b ${line}`}>
+            <div className={`text-[15px] font-bold ${accent}`} style={HEAD}>{h.pillar}</div>
+            <div className="space-y-[3px] text-[13px] leading-[1.35]">
+              {h.lines.map((l, i) => (
+                <div key={l} className="flex gap-2">
+                  <span className={`shrink-0 pt-[2px] text-[10px] font-bold ${accent}`}>{i + 1}</span>
+                  <span className={ink}>{l}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
+        <div>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Pola hook yang jalan</div>
+          <div className="flex flex-wrap gap-1.5">
+            {hookFormulas.map((f) => (
+              <span key={f} className={`rounded px-2 py-[3px] text-[11.5px] font-bold ${chip}`}>{f}</span>
+            ))}
+          </div>
+        </div>
+        <ul className={`space-y-1 border-t pt-3 text-[11.5px] leading-[1.3] ${line} ${muted}`}>
+          {hookRules.map((r) => <li key={r}>• {r}</li>)}
+        </ul>
+        <div className={`border-t pt-3 ${line}`}>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>🇯🇵 Hook minggu Jepang</div>
+          <ul className="space-y-1 text-[11.5px] leading-[1.3]">
+            {japanHooks.map((h) => <li key={h} className={ink}>• {h}</li>)}
+          </ul>
+        </div>
+      </div>
+      <Footer n={num} dark={!b} />
+    </Stage>
+  );
+}
+
 export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "cover", el: CoverSlide },
   { id: "stats", el: StatsSlide },
@@ -610,7 +664,9 @@ export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "japan-1", el: () => <JapanScheduleSlide part={0} /> },
   { id: "japan-2", el: () => <JapanScheduleSlide part={1} /> },
   { id: "distribution", el: DistributionSlide },
-  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={21} /> },
-  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={22} /> },
+  { id: "hook-beauty", el: () => <HookSlide brand="beauty" num={21} /> },
+  { id: "hook-hair", el: () => <HookSlide brand="hair" num={22} /> },
+  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={23} /> },
+  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={24} /> },
   { id: "closing", el: ClosingSlide },
 ];
