@@ -548,6 +548,7 @@ function CaptionSlide({ brand, num }: { brand: Brand; num: number }) {
   const muted = b ? "text-ggs-gray" : "text-primary-foreground/65";
   const line = b ? "border-border" : "border-primary-foreground/15";
   const chip = b ? "bg-ggs-pink-soft text-ggs-pink" : "bg-ggs-gold-soft text-ggs-ink";
+  const localRing = b ? "ring-1 ring-ggs-pink/40" : "ring-1 ring-ggs-gold/45";
   const tags = hashtags[brand];
   return (
     <Stage dark={!b}>
@@ -567,16 +568,25 @@ function CaptionSlide({ brand, num }: { brand: Brand; num: number }) {
           </div>
         ))}
       </div>
-      <div className="absolute top-[160px] left-[864px] w-[352px] space-y-4">
-        {([["Hashtag inti", tags.core], ["Rotasi (pilih 3–4)", tags.rotate], ["Minggu Jepang", hashtags.japan.core]] as const).map(([t, list]) => (
+      <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
+        {([
+          ["Hashtag lokal — selalu pakai", tags.local, true],
+          ["Hashtag inti", tags.core, false],
+          ["Rotasi (pilih 3–4)", tags.rotate, false],
+          ["Minggu Jepang", hashtags.japan.core, false],
+        ] as const).map(([t, list, isLocal]) => (
           <div key={t}>
-            <div className={`mb-2 text-[12px] font-bold tracking-[0.15em] uppercase ${muted}`}>{t}</div>
+            <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>
+              {isLocal ? `📍 ${t}` : t}
+            </div>
             <div className="flex flex-wrap gap-1.5">
-              {list.map((h) => <span key={h} className={`rounded px-2 py-1 text-[12px] font-bold ${chip}`}>{h}</span>)}
+              {list.map((h) => (
+                <span key={h} className={`rounded px-2 py-[3px] text-[11.5px] font-bold ${chip} ${isLocal ? localRing : ""}`}>{h}</span>
+              ))}
             </div>
           </div>
         ))}
-        <ul className={`space-y-1.5 border-t pt-4 text-[12px] leading-[1.35] ${line} ${muted}`}>
+        <ul className={`space-y-1 border-t pt-3 text-[11.5px] leading-[1.3] ${line} ${muted}`}>
           {captionRules.map((r) => <li key={r}>• {r}</li>)}
         </ul>
       </div>
