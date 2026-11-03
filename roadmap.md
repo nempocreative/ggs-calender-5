@@ -1,4 +1,5 @@
 # GGS presentation
+- [ ] Pisahkan jadwal produksi Jepang dan salon, dengan tabel dan jumlah yang tidak tercampur.
 - [x] Rapikan ukuran teks, jarak, dan batas konten semua slide; periksa seluruh halaman di preview.
 - [x] Recheck latest repository services and align the visible content topics and filming flows.
 - [x] Finish restrained, professional pitch-deck redesign without changing the schedule.
