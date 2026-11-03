@@ -54,6 +54,18 @@ function Kicker({ children, color }: { children: ReactNode; color: "pink" | "gol
   );
 }
 
+// Tanda jenis konten: video (rekam) vs design (foto/carousel).
+function TypeBadge({ k }: { k: string }) {
+  const video = PILLARS.find((p) => p.key === k)?.video ?? false;
+  return (
+    <span
+      className={`ml-1.5 inline-flex items-center gap-1 rounded-full px-2 py-[2px] align-middle text-[10px] font-bold tracking-wide ${video ? "bg-ggs-gold-soft text-ggs-gold" : "bg-ggs-pink-soft text-ggs-pink"}`}
+    >
+      {video ? "▶ Video" : "◧ Design"}
+    </span>
+  );
+}
+
 // ---- 1. Cover ----
 function CoverSlide() {
   return (
@@ -156,7 +168,7 @@ function PillarsSlide() {
                 p.video ? "bg-ggs-gold-soft text-ggs-gold" : "bg-ggs-pink-soft text-ggs-pink"
               }`}
             >
-              {p.video ? "VIDEO" : "NON-VIDEO"}
+              {p.video ? "▶ VIDEO" : "◧ DESIGN"}
             </div>
           </div>
         ))}
@@ -178,7 +190,7 @@ function RhythmSlide() {
     { t: "19:30", d: "Prime time — video utama atau Ngobras", dark: false },
   ];
   const rules = [
-    "Maksimal 2 video per hari — tiap hari selalu ada Promo non-video (foto atau carousel).",
+    "Maksimal 2 video per hari — tiap hari selalu ada Promo design (foto atau carousel).",
     "Komedi tampil lebih jarang (12x): Si Elis di GGS Beauty, Comedy di GGS Hair Studio — supaya tetap segar.",
   ];
   return (
@@ -263,7 +275,7 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
             </td>
             {cells.map((k, s) => (
               <td key={s} className={`border ${borderCls} ${cellCls} px-3 py-2 text-center`}>
-                <div className="text-[12px] font-bold">{shortName(k, light ? "beauty" : "hair")} · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
+                <div className="text-[12px] font-bold">{shortName(k, light ? "beauty" : "hair")}<TypeBadge k={k} /> · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
                 <div className="mt-1 text-[14px] leading-[1.3]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
               </td>
             ))}
@@ -291,6 +303,12 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
       </h2>
       <div className={`absolute top-[112px] right-[64px] text-[17px] ${light ? "text-ggs-gray" : "text-white/50"}`}>
         {weekRanges[w]}
+      </div>
+      <div className={`absolute top-[143px] right-[64px] flex items-center gap-2 text-[13px] ${light ? "text-ggs-gray" : "text-white/50"}`}>
+        <span className="font-bold text-ggs-gold">▶ Video</span>
+        <span>rekam</span>
+        <span className="mx-1 font-bold text-ggs-pink">◧ Design</span>
+        <span>foto / carousel</span>
       </div>
       <div className="absolute top-[170px] left-[64px] w-[1152px]">
         <WeekTable sched={light ? schedBeauty : schedHair} start={w * 7} light={light} />
@@ -320,7 +338,7 @@ function JapanScheduleSlide({ part }: { part: number }) {
             return <tr key={day} className="h-[76px]">
               <td className="border border-border px-4 text-[14px] font-bold text-ggs-ink">{days[JAPAN_DAYS[0] + day]}</td>
               {row.map((key, slot) => <td key={slot} className="border border-border px-4 py-3 text-center">
-                <div className="text-[12px] font-bold text-ggs-gold">{shortName(key)} · {scheduledBrief("beauty", schedJapan, day, slot)?.format.split(" • ")[0]}</div>
+                <div className="text-[12px] font-bold text-ggs-gold">{shortName(key)}<TypeBadge k={key} /> · {scheduledBrief("beauty", schedJapan, day, slot)?.format.split(" • ")[0]}</div>
                 <div className="mt-2 text-[15px] leading-[1.35] text-ggs-ink">{scheduledBrief("beauty", schedJapan, day, slot)?.topic}</div>
               </td>)}
             </tr>;
