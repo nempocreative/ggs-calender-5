@@ -17,6 +17,9 @@ function Stage({ children, dark }: { children: ReactNode; dark?: boolean }) {
       style={BODY}
     >
       {children}
+      <div className={`pointer-events-none absolute inset-x-0 bottom-[8px] z-10 text-center text-[14px] font-bold ${dark ? "text-ggs-gold/70" : "text-ggs-gray/70"}`}>
+        Nempo.id
+      </div>
     </div>
   );
 }
