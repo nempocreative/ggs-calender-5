@@ -1,4 +1,5 @@
 # GGS presentation
+- [ ] Replace repeated Japan topics with 27 distinct owner/product briefs and verify both Japan slides.
 - [x] Pisahkan jadwal produksi Jepang dan salon, dengan tabel dan jumlah yang tidak tercampur.
 - [x] Rapikan ukuran teks, jarak, dan batas konten semua slide; periksa seluruh halaman di preview.
 - [x] Recheck latest repository services and align the visible content topics and filming flows.
