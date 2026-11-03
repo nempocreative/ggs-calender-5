@@ -156,5 +156,5 @@ export const weekRanges = [
   "25 November – 1 Desember 2026",
 ];
 
-export const shortName = (k: string) =>
-  ({ talk: "GGS Talk", elis: "Si Elis", cine: "Cinematic", ngobras: "Ngobras", promo: "Promo" })[k] ?? k;
+export const shortName = (k: string, brand: Brand = "beauty") =>
+  k in PILLAR_LABEL ? pillarName(k as PillarKey, brand) : k;
