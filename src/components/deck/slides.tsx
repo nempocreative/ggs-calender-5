@@ -29,12 +29,12 @@ function Footer({ n, dark }: { n: number; dark?: boolean }) {
   );
 }
 
-function RoundLogo({ src, size = 96 }: { src: string; size?: number }) {
+function RoundLogo({ src, size = 96, ring = "ring-white/20" }: { src: string; size?: number; ring?: string }) {
   return (
     <img
       src={src}
       alt="logo"
-      className="rounded-full object-cover ring-2 ring-white/20"
+      className={`rounded-full object-cover ring-2 ${ring}`}
       style={{ width: size, height: size }}
     />
   );
