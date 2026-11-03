@@ -269,7 +269,7 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
     <Stage dark={!light}>
       <div className="absolute top-[56px] left-[64px]">
         <Kicker color={light ? "pink" : "gold"}>
-          {light ? "04" : "05"} — JADWAL MINGGUAN • {light ? "GGS BEAUTY" : "GGS HAIR STUDIO"}
+          JADWAL MINGGUAN • {light ? "GGS BEAUTY" : "GGS HAIR STUDIO"}
         </Kicker>
       </div>
       <h2
@@ -320,7 +320,7 @@ function DistributionSlide() {
   return (
     <Stage>
       <div className="absolute top-[64px] left-[76px]">
-        <Kicker color="pink">06 — DISTRIBUSI</Kicker>
+        <Kicker color="pink">07 — DISTRIBUSI</Kicker>
       </div>
       <h2 className="absolute top-[104px] left-[76px] text-[52px] font-bold text-ggs-ink" style={HEAD}>
         Distribusi Konten per Akun
@@ -360,12 +360,12 @@ function DistributionSlide() {
           Si Elis sengaja 12x — jeda antar komedi menjaga kesegaran konten.
         </div>
       </div>
-      <Footer n={15} />
+      <Footer n={19} />
     </Stage>
   );
 }
 
-// ---- 16. Closing ----
+// ---- 20. Closing ----
 function ClosingSlide() {
   return (
     <Stage dark>
