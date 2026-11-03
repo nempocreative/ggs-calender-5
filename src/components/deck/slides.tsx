@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
 import { PILLARS, TARGET, JAPAN_DAYS, JAPAN_TARGET, SLOTS, days, schedBeauty, schedHair, schedJapan, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
+import { captions, captionRules, hashtags } from "@/lib/captions";
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
 import salonBeauty from "@/assets/salon_beauty.jpg";
