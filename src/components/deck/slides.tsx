@@ -55,13 +55,13 @@ function Kicker({ children, color }: { children: ReactNode; color: "pink" | "gol
 }
 
 // Tanda jenis konten: video (rekam) vs design (foto/carousel).
-function TypeBadge({ k }: { k: string }) {
+function TypeFlag({ k }: { k: string }) {
   const video = PILLARS.find((p) => p.key === k)?.video ?? false;
   return (
     <span
-      className={`ml-1.5 inline-flex items-center gap-1 rounded-full px-2 py-[2px] align-middle text-[10px] font-bold tracking-wide ${video ? "bg-ggs-gold-soft text-ggs-gold" : "bg-ggs-pink-soft text-ggs-pink"}`}
+      className={`content-type-flag ${video ? "bg-ggs-gold text-ggs-ink" : "bg-ggs-pink text-primary-foreground"}`}
     >
-      {video ? "▶ Video" : "◧ Design"}
+      {video ? "VIDEO" : "DESIGN"}
     </span>
   );
 }
@@ -163,13 +163,7 @@ function PillarsSlide() {
               {p.full}
             </div>
             <div className="text-[15px] leading-[1.45] text-ggs-gray">{p.desc}</div>
-            <div
-              className={`w-[100px] whitespace-nowrap rounded-full py-2 text-center text-[11px] font-bold ${
-                p.video ? "bg-ggs-gold-soft text-ggs-gold" : "bg-ggs-pink-soft text-ggs-pink"
-              }`}
-            >
-              {p.video ? "▶ VIDEO" : "◧ DESIGN"}
-            </div>
+            <div className="flex justify-end"><TypeFlag k={p.key} /></div>
           </div>
         ))}
       </div>
@@ -275,7 +269,7 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
             </td>
             {cells.map((k, s) => (
               <td key={s} className={`border ${borderCls} ${cellCls} px-2.5 py-1.5 text-center`}>
-                <div className="text-[12px] font-bold">{shortName(k, light ? "beauty" : "hair")}<TypeBadge k={k} /> · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
+                <div className="flex items-center justify-between gap-2 text-[12px] font-bold"><span>{shortName(k, light ? "beauty" : "hair")}</span><TypeFlag k={k} /></div>
                 <div className="mt-0.5 text-[13px] leading-[1.25]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
               </td>
             ))}
@@ -305,10 +299,8 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
         {weekRanges[w]}
       </div>
       <div className={`absolute top-[143px] right-[64px] flex items-center gap-2 text-[13px] ${light ? "text-ggs-gray" : "text-white/50"}`}>
-        <span className="font-bold text-ggs-gold">▶ Video</span>
-        <span>rekam</span>
-        <span className="mx-1 font-bold text-ggs-pink">◧ Design</span>
-        <span>foto / carousel</span>
+        <TypeFlag k="cine" />
+        <TypeFlag k="promo" />
       </div>
       <div className="absolute top-[170px] left-[64px] w-[1152px]">
         <WeekTable sched={light ? schedBeauty : schedHair} start={w * 7} light={light} />
@@ -338,7 +330,7 @@ function JapanScheduleSlide({ part }: { part: number }) {
             return <tr key={day} className="h-[76px]">
               <td className="border border-border px-4 text-[14px] font-bold text-ggs-ink">{days[JAPAN_DAYS[0] + day]}</td>
               {row.map((key, slot) => <td key={slot} className="border border-border px-4 py-3 text-center">
-                <div className="text-[12px] font-bold text-ggs-gold">{shortName(key)}<TypeBadge k={key} /> · {scheduledBrief("beauty", schedJapan, day, slot)?.format.split(" • ")[0]}</div>
+                <div className="flex items-center justify-between gap-2 text-[12px] font-bold text-ggs-gold"><span>{shortName(key)}</span><TypeFlag k={key} /></div>
                 <div className="mt-2 text-[15px] leading-[1.35] text-ggs-ink">{scheduledBrief("beauty", schedJapan, day, slot)?.topic}</div>
               </td>)}
             </tr>;
