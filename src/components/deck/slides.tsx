@@ -3,6 +3,8 @@ import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } fr
 import { PILLARS, TARGET, JAPAN_DAYS, JAPAN_TARGET, SLOTS, days, schedBeauty, schedHair, schedJapan, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
 import { captions, captionRules, hashtags } from "@/lib/captions";
 import { hookBank, hookFormulas, hookRules, japanHooks } from "@/lib/hooks";
+import { talkClips, talkEpisodes, talkMeta, talkQuestions, talkRules, talkRundown } from "@/lib/talk";
+
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
 import salonBeauty from "@/assets/salon_beauty.jpg";
@@ -638,7 +640,7 @@ function HookSlide({ brand, num }: { brand: Brand; num: number }) {
           {hookRules.map((r) => <li key={r}>• {r}</li>)}
         </ul>
         <div className={`border-t pt-3 ${line}`}>
-          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>🇯🇵 Hook minggu Jepang</div>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Hook minggu Jepang</div>
           <ul className="space-y-1 text-[11.5px] leading-[1.3]">
             {japanHooks.map((h) => <li key={h} className={ink}>• {h}</li>)}
           </ul>
@@ -666,7 +668,10 @@ export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "distribution", el: DistributionSlide },
   { id: "hook-beauty", el: () => <HookSlide brand="beauty" num={21} /> },
   { id: "hook-hair", el: () => <HookSlide brand="hair" num={22} /> },
-  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={23} /> },
-  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={24} /> },
+  { id: "talk-beauty", el: () => <TalkSlide brand="beauty" num={23} /> },
+  { id: "talk-hair", el: () => <TalkSlide brand="hair" num={24} /> },
+  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={25} /> },
+  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={26} /> },
+
   { id: "closing", el: ClosingSlide },
 ];
