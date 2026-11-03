@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
-import { PILLARS, TARGET, SLOTS, days, schedBeauty, schedHair, weekRanges, shortName, pillarName, dualName } from "@/lib/schedule";
+import { PILLARS, TARGET, SLOTS, days, schedBeauty, schedHair, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
 import salonBeauty from "@/assets/salon_beauty.jpg";
@@ -289,7 +289,7 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
       </div>
       <div className={`absolute bottom-[26px] left-[64px] text-[12px] ${light ? "text-ggs-gray" : "text-white/40"}`}>
         {w === 2
-          ? "Podcast libur 18–24 November (pemilik di luar negeri) • jadwal video dan promo tetap jalan"
+          ? "Minggu Jepang 16–24 November • Podcast libur, diganti Japan Diaries (personal branding owner) + Promo Lotion badan"
           : "Podcast Ngopi Sore tiap Jumat jam 16:00 • topik diputar per layanan • harga/promo wajib dikonfirmasi"}
       </div>
     </Stage>
@@ -389,7 +389,7 @@ function ClosingSlide() {
 // ---- 7-8. Content ideas per service ----
 function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
   const isBeauty = brand === "beauty";
-  const selections = { talk: 3, elis: 3, cine: isBeauty ? 3 : 3, ngobras: 3, promo: isBeauty ? 3 : 3 };
+  const selections: Record<PillarKey, number> = { talk: 3, elis: 3, cine: 3, ngobras: 3, promo: 3, jpn: 0, lotion: 0 };
   return (
     <Stage dark={!isBeauty}>
       <div className="absolute top-[42px] left-[64px]">
@@ -401,7 +401,7 @@ function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
         Layanan Nyata, Cerita yang Spesifik
       </h2>
       <div className="absolute top-[158px] left-[64px] w-[1152px]">
-        {PILLARS.map((pillar) => {
+        {PILLARS.filter((p) => p.key !== "jpn" && p.key !== "lotion").map((pillar) => {
           const brief = briefs[brand][pillar.key][selections[pillar.key]];
           if (!brief) return null;
           return (
