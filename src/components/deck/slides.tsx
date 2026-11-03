@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { briefs, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
 import { PILLARS, TARGET, SLOTS, days, schedBeauty, schedHair, weekRanges, shortName } from "@/lib/schedule";
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
@@ -232,14 +233,14 @@ function SectionBeauty() {
 function WeekTable({ sched, start, light }: { sched: string[][]; start: number; light: boolean }) {
   const headerCls = light ? "bg-ggs-pink text-white" : "bg-ggs-gold text-ggs-ink";
   const dayCls = light ? "bg-ggs-pink-soft text-ggs-pink" : "bg-ggs-dark-card text-ggs-gold";
-  const cellCls = light ? "bg-white text-ggs-ink" : "bg-[#15151A] text-white/90";
+  const cellCls = light ? "bg-background text-ggs-ink" : "bg-ggs-dark-card text-primary-foreground/90";
   const borderCls = light ? "border-neutral-200" : "border-white/10";
   return (
-    <table className={`w-full border-collapse text-[15px] ${borderCls}`}>
+    <table className={`w-full table-fixed border-collapse text-[15px] ${borderCls}`}>
       <thead>
         <tr>
           {["Hari", ...SLOTS].map((h) => (
-            <th key={h} className={`border ${borderCls} ${headerCls} px-3 py-2.5 text-center text-[16px] font-bold`}>
+            <th key={h} className={`border ${borderCls} ${headerCls} px-3 py-2.5 text-center text-[16px] font-bold ${h === "Hari" ? "w-[155px]" : ""}`}>
               {h}
             </th>
           ))}
@@ -253,7 +254,8 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
             </td>
             {cells.map((k, s) => (
               <td key={s} className={`border ${borderCls} ${cellCls} px-3 py-2.5 text-center`}>
-                {shortName(k)}
+                <div className="text-[12px] font-bold">{shortName(k)} · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
+                <div className="mt-1 text-[15px] leading-[1.2]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
               </td>
             ))}
           </tr>
@@ -285,7 +287,7 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
         <WeekTable sched={light ? schedBeauty : schedHair} start={w * 7} light={light} />
       </div>
       <div className={`absolute bottom-[26px] left-[64px] text-[12px] ${light ? "text-ggs-gray" : "text-white/40"}`}>
-        Ngopi Sore selalu jam 16:00 • maksimal 2 video per hari
+        Ngopi Sore jam 16:00 saat terjadwal • topik diputar per layanan • harga/promo wajib dikonfirmasi
       </div>
     </Stage>
   );
@@ -382,149 +384,41 @@ function ClosingSlide() {
 }
 
 // ---- 7-8. Content ideas per service ----
-type IdeasRow = { pillar: string; color: "pink" | "gold"; ideas: string[] };
-
-const BEAUTY_IDEAS: IdeasRow[] = [
-  {
-    pillar: "GGS Talk — Ngopi Sore",
-    color: "pink",
-    ideas: [
-      "Rahasia kuku awet 2 minggu — bahas perawatan nail art",
-      "Creambath L'Oréal vs CBD: kapan harus ganti produk?",
-      "Totok wajah 45 menit: self-care akhir pekan yang murah",
-    ],
-  },
-  {
-    pillar: "Si Elis",
-    color: "gold",
-    ideas: [
-      "Elis salah pilih warna pas colouring — harus bleach padahal takut",
-      "Elis pura-pura tahan nyeri pas full body massage 90 menit",
-      "Elis kalah sabar nunggu kuku full cat eye + chrome",
-    ],
-  },
-  {
-    pillar: "Cinematic Treatment",
-    color: "pink",
-    ideas: [
-      "Before–after keratin smoothing, slow motion",
-      "Proses nail art full cat eye diperagakan dari dekat",
-      "Sesi lulur + masker badan, suasana ruang spa",
-    ],
-  },
-  {
-    pillar: "Ngobras bareng Konsumen",
-    color: "gold",
-    ideas: [
-      "Pelanggan review paket Body Massage + Reflexy sambil direlaksasi",
-      "Ngobrol santai bareng pelanggan yang lagi menipedi",
-      "Cerita pelanggan: perjuangan colouring + bleaching 6 jam",
-    ],
-  },
-  {
-    pillar: "Promo",
-    color: "pink",
-    ideas: [
-      "Paket bundling mulai 140 rb — tampilkan menu lengkapnya",
-      "Menipedi 120 rb — promo hari tertentu",
-      "Jualan produk: Body Lotion Malam & Clay Matte",
-    ],
-  },
-];
-
-const HAIR_IDEAS: IdeasRow[] = [
-  {
-    pillar: "GGS Talk — Ngopi Sore",
-    color: "gold",
-    ideas: [
-      "Bedanya hair mask dan creambath — jawab satu babak",
-      "Kapan rambut butuh keratin? Sign-nya kering & bercabang",
-      "Pijat kepala 15 menit, penyelamat paling ampuh di sore hari",
-    ],
-  },
-  {
-    pillar: "Si Elis",
-    color: "pink",
-    ideas: [
-      "Elis minta potongan ala artis, hasilnya gagal total",
-      "Elis bengong menahan kejut saat bleaching rambut",
-      "Elis vs jenggot yang keras kepala",
-    ],
-  },
-  {
-    pillar: "Cinematic Treatment",
-    color: "gold",
-    ideas: [
-      "Slow-motion proses potong rambut di kursi barbershop",
-      "Timelapse highlight bleaching, dari cokelat ke blonde",
-      "Ritual paket GPS: potong + creambath + tonik",
-    ],
-  },
-  {
-    pillar: "Ngobras bareng Konsumen",
-    color: "pink",
-    ideas: [
-      "Pelanggan cerita sebelum–sesudah potong rambut",
-      "Ngobrol bareng pelanggan keratin smoothing",
-      "Reaksi pertama pelanggan lihat hasil pewarnaan",
-    ],
-  },
-  {
-    pillar: "Promo",
-    color: "gold",
-    ideas: [
-      "Paket G 45 rb — potong + pijat bahu, tampilkan harga besar",
-      "Paket GPS 100 rb — lengkap dari potong sampai facial",
-      "Keratin smoothing mulai 300 rb, rambut lurus alami",
-    ],
-  },
-];
-
-function ContentIdeasSlide({
-  brand,
-  num,
-}: {
-  brand: "beauty" | "hair";
-  num: number;
-}) {
+function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
   const isBeauty = brand === "beauty";
-  const rows = isBeauty ? BEAUTY_IDEAS : HAIR_IDEAS;
+  const selections = { talk: 0, elis: 0, cine: isBeauty ? 0 : 2, ngobras: 0, promo: isBeauty ? 1 : 1 };
   return (
-    <Stage>
-      <div className="absolute top-[46px] left-[64px]">
+    <Stage dark={!isBeauty}>
+      <div className="absolute top-[42px] left-[64px]">
         <Kicker color={isBeauty ? "pink" : "gold"}>
-          {isBeauty ? "04" : "05"} — IDE KONTEN SPESIFIK • {isBeauty ? "GGS BEAUTY" : "GGS HAIR STUDIO"}
+          {isBeauty ? "04 — GGS BEAUTY" : "05 — GGS HAIR STUDIO"} • LAYANAN & PENGAMBILAN
         </Kicker>
       </div>
-      <h2
-        className={`absolute top-[80px] left-[64px] text-[40px] font-bold ${isBeauty ? "text-ggs-ink" : "text-ggs-ink"}`}
-        style={HEAD}
-      >
-        Konten Ditarik Langsung dari Layanan
+      <h2 className={`absolute top-[80px] left-[64px] text-[40px] font-bold ${isBeauty ? "text-ggs-ink" : "text-primary-foreground"}`} style={HEAD}>
+        Layanan Nyata, Cerita yang Spesifik
       </h2>
-      <div className="absolute top-[152px] left-[64px] flex w-[1152px] flex-col gap-[14px]">
-        {rows.map((r) => (
-          <div key={r.pillar} className="flex items-start gap-5">
-            <div
-              className={`w-[230px] shrink-0 text-[16px] font-bold ${r.color === "pink" ? "text-ggs-pink" : "text-ggs-gold"}`}
-              style={HEAD}
-            >
-              {r.pillar}
+      <div className="absolute top-[158px] left-[64px] w-[1152px]">
+        {PILLARS.map((pillar) => {
+          const brief = briefs[brand][pillar.key][selections[pillar.key]];
+          if (!brief) return null;
+          return (
+            <div key={pillar.key} className={`grid min-h-[91px] grid-cols-[210px_1fr] gap-6 border-b py-3 ${isBeauty ? "border-border" : "border-primary-foreground/15"}`}>
+              <div>
+                <div className={`text-[18px] font-bold ${isBeauty ? "text-ggs-pink" : "text-ggs-gold"}`} style={HEAD}>{pillar.name}</div>
+                <div className={`mt-1 text-[13px] ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/65"}`}>{brief.format}</div>
+              </div>
+              <div>
+                <div className={`text-[19px] font-bold ${isBeauty ? "text-ggs-ink" : "text-primary-foreground"}`}>{brief.topic}</div>
+                <div className={`mt-1 text-[15px] leading-[1.35] ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/75"}`}>{brief.flow}</div>
+              </div>
             </div>
-            <div className="flex flex-1 flex-col gap-1.5">
-              {r.ideas.map((idea, i) => (
-                <div key={idea} className="flex items-center gap-2.5">
-                  <span
-                    className={`h-[8px] w-[8px] shrink-0 rounded-full ${r.color === "pink" ? "bg-ggs-pink" : "bg-ggs-gold"}`}
-                  />
-                  <span className="text-[15px] text-ggs-ink">{idea}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
-      <Footer n={num} />
+      <a href={SERVICE_SOURCE} target="_blank" rel="noreferrer" className={`absolute bottom-[48px] left-[64px] text-[12px] underline underline-offset-4 ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/65"}`}>
+        Acuan: daftar layanan di GitHub • harga dan promo aktif dikonfirmasi ke salon sebelum tayang
+      </a>
+      <Footer n={num} dark={!isBeauty} />
     </Stage>
   );
 }
@@ -535,17 +429,17 @@ function FlowSlide() {
     {
       n: "01",
       t: "Brief tiap Senin",
-      d: "Pilih layanan unggulan minggu ini dari jadwal, siapkan naskah Si Elis.",
+      d: "Cocokkan menu GitHub dengan salon, validasi harga, pilih topik dari jadwal dan siapkan naskah.",
     },
     {
       n: "02",
       t: "Syuting batch",
-      d: "2 sesi syuting per minggu per akun — semua video minggu itu direkam sekaligus.",
+      d: "Izin pelanggan dahulu; rekam kondisi awal, detail proses dan hasil. Foto/carousel diambil pada sesi yang sama.",
     },
     {
       n: "03",
       t: "Editing H-1",
-      d: "Video dirapikan dan caption + hashtag siap sehari sebelum tayang.",
+      d: "Pilih footage, siapkan carousel Ngopi Sore dan foto Promo. Hindari filter before–after dan klaim medis.",
     },
     {
       n: "04",
@@ -555,7 +449,7 @@ function FlowSlide() {
     {
       n: "05",
       t: "Evaluasi mingguan",
-      d: "Catat video terbaik, gandakan pola konten serupa untuk minggu depan.",
+      d: "Salon menyetujui hasil dan harga sebelum tayang; evaluasi respons dan pertanyaan booking tiap minggu.",
     },
   ];
   return (
@@ -587,7 +481,7 @@ function FlowSlide() {
       </div>
       <div className="absolute bottom-[120px] left-[76px] flex w-[1128px] items-center border-l-[10px] border-ggs-gold bg-ggs-gold-soft px-8 py-6">
         <p className="text-[16px] leading-relaxed text-ggs-ink">
-          Konsisten lebih penting daripada sempurna: Konten tayang setiap hari sesuai jadwal, bukan saat mood datang.
+          Menu di GitHub adalah acuan awal, bukan konfirmasi promo aktif. Jangan mengarang diskon, hasil pasti, atau isi paket.
         </p>
       </div>
       <Footer n={7} />
