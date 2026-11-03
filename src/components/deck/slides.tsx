@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
-import { PILLARS, TARGET, SLOTS, days, schedBeauty, schedHair, weekRanges, shortName } from "@/lib/schedule";
+import { PILLARS, TARGET, SLOTS, days, schedBeauty, schedHair, weekRanges, shortName, pillarName, dualName } from "@/lib/schedule";
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
 import salonBeauty from "@/assets/salon_beauty.jpg";
@@ -171,7 +171,7 @@ function RhythmSlide() {
   ];
   const rules = [
     "Maksimal 2 video per hari — setiap hari pasti ada konten non-video (GGS Talk atau Promo).",
-    "Si Elis tampil lebih jarang (12x) supaya komedinya tetap segar dan tidak kejenuhan.",
+    "Komedi tampil lebih jarang (12x): Si Elis di GGS Beauty, Comedy di GGS Hair Studio — supaya tetap segar.",
   ];
   return (
     <Stage>
@@ -255,7 +255,7 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
             </td>
             {cells.map((k, s) => (
               <td key={s} className={`border ${borderCls} ${cellCls} px-3 py-2.5 text-center`}>
-                <div className="text-[12px] font-bold">{shortName(k)} · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
+                <div className="text-[12px] font-bold">{shortName(k, light ? "beauty" : "hair")} · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
                 <div className="mt-1 text-[15px] leading-[1.2]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
               </td>
             ))}
@@ -342,7 +342,7 @@ function DistributionSlide() {
                 </div>
               ))}
             </div>
-            <span className="text-[13px] text-ggs-gray">{p.name}</span>
+            <span className="text-[13px] text-ggs-gray">{dualName(p.key)}</span>
           </div>
         ))}
       </div>
@@ -360,7 +360,7 @@ function DistributionSlide() {
         </div>
         <div className="mt-3 text-[15px] text-ggs-gray">konten per akun dalam 28 hari</div>
         <div className="mt-8 rounded-xl bg-ggs-gold-soft p-5 text-[14px] leading-relaxed text-ggs-ink">
-          Si Elis sengaja 12x — jeda antar komedi menjaga kesegaran konten.
+          Komedi sengaja 12x — Si Elis di Beauty, Comedy di Hair Studio.
         </div>
       </div>
       <Footer n={18} />
@@ -405,7 +405,7 @@ function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
           return (
             <div key={pillar.key} className={`grid h-[93px] grid-cols-[210px_1fr] gap-6 border-b py-2 ${isBeauty ? "border-border" : "border-primary-foreground/15"}`}>
               <div>
-                <div className={`text-[18px] font-bold ${isBeauty ? "text-ggs-pink" : "text-ggs-gold"}`} style={HEAD}>{pillar.name}</div>
+                <div className={`text-[18px] font-bold ${isBeauty ? "text-ggs-pink" : "text-ggs-gold"}`} style={HEAD}>{pillarName(pillar.key, brand)}</div>
                 <div className={`mt-1 text-[13px] ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/65"}`}>{brief.format}</div>
               </div>
               <div>
