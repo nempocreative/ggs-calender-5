@@ -30,7 +30,7 @@ export function Deck() {
     return () => window.removeEventListener("keydown", onKey);
   }, [go]);
 
-  const Slide = slides[i].el;
+  const Slide = slides[i]!.el;
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center gap-4 bg-ggs-dark py-6">
