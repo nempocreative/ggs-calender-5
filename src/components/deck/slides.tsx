@@ -3,6 +3,8 @@ import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } fr
 import { PILLARS, TARGET, JAPAN_DAYS, JAPAN_TARGET, SLOTS, days, schedBeauty, schedHair, schedJapan, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
 import { captions, captionRules, hashtags } from "@/lib/captions";
 import { hookBank, hookFormulas, hookRules, japanHooks } from "@/lib/hooks";
+import { talkClips, talkEpisodes, talkFlow, talkMeta, talkQuestions, talkRules } from "@/lib/talk";
+
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
 import salonBeauty from "@/assets/salon_beauty.jpg";
@@ -638,7 +640,7 @@ function HookSlide({ brand, num }: { brand: Brand; num: number }) {
           {hookRules.map((r) => <li key={r}>• {r}</li>)}
         </ul>
         <div className={`border-t pt-3 ${line}`}>
-          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>🇯🇵 Hook minggu Jepang</div>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Hook minggu Jepang</div>
           <ul className="space-y-1 text-[11.5px] leading-[1.3]">
             {japanHooks.map((h) => <li key={h} className={ink}>• {h}</li>)}
           </ul>
@@ -649,7 +651,83 @@ function HookSlide({ brand, num }: { brand: Brand; num: number }) {
   );
 }
 
+// ---- GGS Talk (podcast Ngopi Sore) guide ----
+function TalkSlide({ brand, num }: { brand: Brand; num: number }) {
+  const b = brand === "beauty";
+  const accent = b ? "text-ggs-pink" : "text-ggs-gold";
+  const ink = b ? "text-ggs-ink" : "text-primary-foreground";
+  const muted = b ? "text-ggs-gray" : "text-primary-foreground/65";
+  const line = b ? "border-border" : "border-primary-foreground/15";
+  const panel = b ? "bg-ggs-pink-soft" : "bg-ggs-gold-soft";
+  return (
+    <Stage dark={!b}>
+      <div className="absolute top-[42px] left-[64px]">
+        <Kicker color={b ? "pink" : "gold"}>{b ? "GGS BEAUTY" : "GGS HAIR STUDIO"} • ACUAN GGS TALK</Kicker>
+      </div>
+      <h2 className={`slide-title absolute top-[80px] left-[64px] font-bold ${ink}`} style={HEAD}>Podcast Ngopi Sore</h2>
+      <div className={`absolute top-[134px] left-[64px] w-[760px] text-[13.5px] ${muted}`}>
+        Owner ngobrol santai — pertanyaan di kiri cuma pemantik, bukan naskah yang dibaca.
+      </div>
+
+      <div className="absolute top-[172px] left-[64px] w-[760px] space-y-4">
+        {talkQuestions[brand].map((g) => (
+          <div key={g.group}>
+            <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>{g.group}</div>
+            <ul className={g.items.length > 3 ? "grid grid-cols-2 gap-x-6 gap-y-1" : "space-y-1"}>
+              {g.items.map((q) => (
+                <li key={q} className="flex gap-2 text-[13px] leading-[1.35]">
+                  <span className={`shrink-0 pt-[2px] text-[11px] font-bold ${accent}`}>—</span>
+                  <span className={ink}>{q}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+        <div className={`border-t pt-3 ${line}`}>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Biar ngobrolnya ngalir</div>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-[11px] leading-[1.3]">
+            {talkRules.map((r) => <li key={r} className={muted}>• {r}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
+        <div>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Episode yang tayang</div>
+          <div className="space-y-1.5">
+            {talkEpisodes[brand].map((e) => (
+              <div key={e.day} className={`rounded-md px-2.5 py-1.5 ${panel}`}>
+                <div className="text-[12.5px] font-bold leading-[1.3] text-ggs-ink" style={HEAD}>{e.air} — {e.topic}</div>
+                <div className="text-[11px] text-ggs-ink/70">Tamu: {e.guest}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className={`border-t pt-3 ${line}`}>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Alur longgar {talkMeta.duration}</div>
+          <ul className="space-y-1 text-[11px] leading-[1.3]">
+            {talkFlow.map((s) => (
+              <li key={s.t} className={muted}>
+                <span className={`font-bold ${accent}`}>{s.t}</span> — {s.name}: {s.note}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={`border-t pt-3 ${line}`}>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Bahan turunan</div>
+          <ul className="space-y-1 text-[11px] leading-[1.3]">
+            {talkClips.map((c) => <li key={c} className={ink}>• {c}</li>)}
+          </ul>
+        </div>
+      </div>
+
+      <Footer n={num} dark={!b} />
+    </Stage>
+  );
+}
+
 export const slides: { id: string; el: () => ReactNode }[] = [
+
   { id: "cover", el: CoverSlide },
   { id: "stats", el: StatsSlide },
   { id: "pillars", el: PillarsSlide },
@@ -666,7 +744,10 @@ export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "distribution", el: DistributionSlide },
   { id: "hook-beauty", el: () => <HookSlide brand="beauty" num={21} /> },
   { id: "hook-hair", el: () => <HookSlide brand="hair" num={22} /> },
-  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={23} /> },
-  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={24} /> },
+  { id: "talk-beauty", el: () => <TalkSlide brand="beauty" num={23} /> },
+  { id: "talk-hair", el: () => <TalkSlide brand="hair" num={24} /> },
+  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={25} /> },
+  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={26} /> },
+
   { id: "closing", el: ClosingSlide },
 ];
