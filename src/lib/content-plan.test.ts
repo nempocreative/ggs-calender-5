@@ -110,3 +110,18 @@ describe("Separate Japan and salon production", () => {
     });
   }
 });
+
+describe("Unique content across the month", () => {
+  for (const brand of ["beauty", "hair"] as Brand[]) {
+    it(`${brand}: no topic repeats and no service repeats within a day`, () => {
+      const schedule = brand === "beauty" ? schedBeauty : schedHair;
+      const topics = new Set<string>();
+      schedule.forEach((row, d) => {
+        const svc = row.map((_, s) => scheduledBrief(brand, schedule, d, s)!);
+        expect(new Set(svc.map((b) => b.service)).size).toBe(3);
+        svc.forEach((b) => topics.add(b.topic));
+      });
+      expect(topics.size).toBe(84);
+    });
+  }
+});
