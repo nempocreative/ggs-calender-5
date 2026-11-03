@@ -1,8 +1,10 @@
 // GGS content schedule generator — 28 days, 3 slots/day, per account.
 // Rules: <=2 videos/day (always mixed with a non-video), GGS Talk always 16:00.
 
+export type PillarKey = "talk" | "elis" | "cine" | "ngobras" | "promo";
+
 export interface Pillar {
-  key: string;
+  key: PillarKey;
   name: string;
   full: string;
   desc: string;
@@ -50,7 +52,7 @@ function buildSchedule(extraDays: number[], promoFirst: boolean): string[][] {
   for (let i = 0, prev = 0; i < twoSlotDays.length; i++) {
     const upto = Math.round(((i + 1) * 12) / twoSlotDays.length);
     if (upto > prev) {
-      elisDays.add(twoSlotDays[i]);
+      elisDays.add(twoSlotDays[i]!);
       prev = upto;
     }
   }
