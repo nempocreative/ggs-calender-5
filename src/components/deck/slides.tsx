@@ -567,7 +567,7 @@ function CaptionSlide({ brand, num }: { brand: Brand; num: number }) {
           </div>
         ))}
       </div>
-      <div className="absolute top-[160px] left-[864px] w-[352px] space-y-5">
+      <div className="absolute top-[160px] left-[864px] w-[352px] space-y-4">
         {([["Hashtag inti", tags.core], ["Rotasi (pilih 3–4)", tags.rotate], ["Minggu Jepang", hashtags.japan.core]] as const).map(([t, list]) => (
           <div key={t}>
             <div className={`mb-2 text-[12px] font-bold tracking-[0.15em] uppercase ${muted}`}>{t}</div>
