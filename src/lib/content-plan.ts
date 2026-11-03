@@ -132,6 +132,26 @@ const HOOKS: Record<"elis" | "cine" | "ngobras" | "promo", { topic: (l: string) 
     { topic: (l) => `Story poll: siapa mau ${l}?`, format: "Story • poll + link", flow: (l) => `Foto ${l} → stiker poll → follow-up DM ke yang vote → link booking.` },
   ],
 };
+// Hair Studio: beard/moustache grooming capped at one post per pillar so the men's feed stays varied.
+const GROOMING = /Jenggot|Kumis/;
+const HAIR_HOOKS: typeof HOOKS = {
+  elis: [
+    { topic: (l) => `Cowok pas ditanya "mau model apa?" (${l})`, format: "Reels • 20–30 detik", flow: (l) => `Klien bengong jawab "terserah" → barber tebak gaya lewat pertanyaan lucu → ${l} → reveal percaya diri.` },
+    { topic: (l) => `Disuruh pacar ke barber: ${l}`, format: "Reels • 20–30 detik", flow: (l) => `Chat pacar di layar → klien datang setengah hati → ${l} → kirim foto hasil, balasan lucu.` },
+  ],
+  cine: [
+    { topic: (l) => `Gaya kantor vs weekend: ${l}`, format: "Reels • 20–30 detik", flow: (l) => `Proses ${l} singkat → transisi outfit kantor → transisi outfit santai → styling dua versi.` },
+    { topic: (l) => `One take cinematic: ${l}`, format: "Reels • 25–40 detik", flow: (l) => `Satu kamera gimbal mengelilingi kursi → proses ${l} → lighting dramatis hitam-gold → reveal.` },
+  ],
+  ngobras: [
+    { topic: (l) => `Ngobrol kerja & hobi sambil ${l}`, format: "Reels • 30–45 detik", flow: (l) => `Tanya profesi/hobi klien → obrolan santai selama ${l} → cerita menarik jadi teks → hasil akhir.` },
+    { topic: (l) => `Barber nanya, klien jawab jujur: ${l}`, format: "Reels • 30–45 detik", flow: (l) => `Pertanyaan cepat kebiasaan rawat rambut → jawaban jujur → proses ${l} → tips barber.` },
+  ],
+  promo: [
+    { topic: (l) => `Siap ngantor/kondangan? ${l}`, format: "Carousel • 3 halaman", flow: (l) => `Halaman 1 situasi acara → halaman 2 hasil ${l} → halaman 3 CTA booking, harga dikonfirmasi.` },
+    { topic: (l) => `Before–after minggu ini: ${l}`, format: "Foto feed • 2 gambar", flow: (l) => `Foto before & after ${l} berizin → cahaya sama → CTA reservasi.` },
+  ],
+};
 for (const brand of ["beauty", "hair"] as Brand[]) {
   const pool = (catalog as Svc[]).filter((s) => s.brand === brand && !SKIP.has(s.category) && (brand === "hair" || s.category !== "PRODUK"));
   for (const key of Object.keys(HOOKS) as (keyof typeof HOOKS)[]) {
@@ -140,7 +160,9 @@ for (const brand of ["beauty", "hair"] as Brand[]) {
     const offset = { elis: 0, cine: 7, ngobras: 13, promo: 19 }[key];
     for (let i = 0; list.length < 32 && i < pool.length * HOOKS[key].length; i++) {
       const s = pool[(i * 5 + offset) % pool.length]!;
-      const h = HOOKS[key][Math.floor(i / pool.length) % HOOKS[key].length]!;
+      const hooks = brand === "hair" ? [...HOOKS[key], ...HAIR_HOOKS[key]] : HOOKS[key];
+      const h = hooks[(i + Math.floor(i / pool.length)) % hooks.length]!;
+      if (brand === "hair" && GROOMING.test(s.name) && list.filter((b) => GROOMING.test(b.service)).length >= 1) continue;
       const l = label(s);
       const b: ContentBrief = { service: s.name, ...(/^(Pendek|Sedang|Panjang)$/.test(s.name) || brand === "hair" ? { category: s.category } : {}), topic: h.topic(l), format: h.format, flow: h.flow(l) };
       if (brand === "hair" && key === "elis" && /Elis/.test(b.topic)) continue;
