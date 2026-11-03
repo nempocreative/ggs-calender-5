@@ -81,21 +81,8 @@ function guestFor(brand: Brand, service: string) {
 const SCHED: Record<Brand, string[][]> = { beauty: schedBeauty, hair: schedHair };
 
 // Episode yang benar-benar tayang bulan ini: Jumat 6, 13, dan 27 November.
-export const talkEpisodes: Record<Brand, TalkEpisode[]> = (["beauty", "hair"] as Brand[]).map((brand) =>
-  PODCAST_DAYS.map((day, i) => {
-    const brief = scheduledBrief(brand, SCHED[brand], day, 1);
-    const topic = brief?.topic ?? briefs[brand].talk[i]?.topic ?? "Topik menyusul";
-    const service = brief?.service ?? briefs[brand].talk[i]?.service ?? "";
-    return {
-      day,
-      air: days[day] ?? "",
-      topic,
-      service,
-      guest: guestFor(brand, service),
-      focus: FOCUS[i] ?? FOCUS[2]!,
-    };
-  }),
-).reduce<Record<Brand, TalkEpisode[]>>((acc, list, i) => {
-  acc[i === 0 ? "beauty" : "hair"] = list;
-  return acc;
-}, { beauty: [], hair: [] });
+export const talkEpisodes: Record<Brand, TalkEpisode[]> = {
+  beauty: build("beauty"),
+  hair: build("hair"),
+};
+
