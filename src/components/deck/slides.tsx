@@ -568,7 +568,7 @@ function CaptionSlide({ brand, num }: { brand: Brand; num: number }) {
           </div>
         ))}
       </div>
-      <div className="absolute top-[156px] left-[864px] w-[352px] space-y-3">
+      <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
         {([
           ["Hashtag lokal — selalu pakai", tags.local, true],
           ["Hashtag inti", tags.core, false],

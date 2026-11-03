@@ -41,9 +41,9 @@ export const hashtags: Record<Brand | "japan", { local: string[]; core: string[]
 };
 
 export const captionRules = [
-  "Hook di baris pertama (maks. 1 kalimat) — muncul sebelum \"…more\".",
-  "Selalu buka dengan 2 hashtag lokal (Garut), lalu 3 inti + 3 rotasi — total 8.",
-  "Sebutkan lokasi di caption: GGS Beauty / GGS Hair Studio, [lokasi], Garut.",
-  "Harga, promo, dan manfaat produk hanya dari info salon / label kemasan.",
-  "Minggu Jepang: hashtag lokal tetap dipakai, tambahkan hashtag Japan.",
+  "Hook di baris pertama — sebelum \"…more\".",
+  "2 hashtag lokal (Garut) + 3 inti + 3 rotasi = 8.",
+  "Sebutkan lokasi: GGS Beauty / Hair Studio, Garut.",
+  "Harga & manfaat produk hanya dari label kemasan.",
+  "Minggu Jepang: tambahkan hashtag Japan.",
 ];
