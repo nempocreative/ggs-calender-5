@@ -5,6 +5,9 @@ import {
   PODCAST_BLACKOUT,
   PODCAST_DAYS,
   TARGET,
+  JAPAN_DAYS,
+  JAPAN_TARGET,
+  schedJapan,
   schedBeauty,
   schedHair,
   pillarName,
@@ -38,10 +41,10 @@ describe("Podcast Ngopi Sore cadence", () => {
       const schedule = brand === "beauty" ? schedBeauty : schedHair;
       expect(schedule.flat().filter((k) => k === "talk").length).toBe(3);
       for (const day of PODCAST_DAYS) {
-        expect(schedule[day]![1]).toBe("talk");
+        expect(schedule[day]?.[1]).toBe("talk");
       }
       for (let day = PODCAST_BLACKOUT[0]; day <= PODCAST_BLACKOUT[1]; day++) {
-        expect(schedule[day]!.includes("talk"), `day ${day}`).toBe(false);
+        expect(schedule[day]?.includes("talk"), `day ${day}`).toBe(false);
       }
       for (const week of [0, 1, 3]) {
         const inWeek = schedule.slice(week * 7, week * 7 + 7).flat().filter((k) => k === "talk").length;
@@ -76,9 +79,33 @@ describe("Repository-backed service content", () => {
         expect(schedule[day]).toHaveLength(3);
         const posts = [0, 1, 2].map((slot) => scheduledBrief(brand, schedule, day, slot));
         expect(posts.every(Boolean)).toBe(true);
-        const videos = schedule[day]!.filter((k) => VIDEO_KEYS.has(k as PillarKey)).length;
+        const videos = schedule[day]?.filter((k) => VIDEO_KEYS.has(k as PillarKey)).length ?? 0;
         expect(videos).toBeLessThanOrEqual(2);
         expect(3 - videos).toBeGreaterThanOrEqual(1);
+      }
+    });
+  }
+});
+
+describe("Separate Japan and salon production", () => {
+  it("Japan has its own nine-day schedule, 16–24 November, for owner and lotion only", () => {
+    expect(JAPAN_DAYS).toEqual([12, 20]);
+    expect(schedJapan).toHaveLength(9);
+    expect(countsOf(schedJapan).jpn).toBe(JAPAN_TARGET.jpn);
+    expect(countsOf(schedJapan).lotion).toBe(JAPAN_TARGET.lotion);
+    expect(schedJapan.flat().every((k) => k === "jpn" || k === "lotion")).toBe(true);
+  });
+  for (const brand of ["beauty", "hair"] as Brand[]) {
+    it(`${brand}: salon continues three daily service posts without Japan or lotion entries`, () => {
+      const schedule = brand === "beauty" ? schedBeauty : schedHair;
+      expect(schedule.flat().some((k) => k === "jpn" || k === "lotion")).toBe(false);
+      for (let day = 12; day <= 20; day++) {
+        expect(schedule[day]).toHaveLength(3);
+        expect(schedule[day]).toContain("promo");
+        for (let slot = 0; slot < 3; slot++) {
+          const brief = scheduledBrief(brand, schedule, day, slot);
+          expect(brief && catalogService(brand, brief)).toBeDefined();
+        }
       }
     });
   }

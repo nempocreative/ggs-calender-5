@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
-import { PILLARS, TARGET, SLOTS, days, schedBeauty, schedHair, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
+import { PILLARS, TARGET, JAPAN_DAYS, JAPAN_TARGET, SLOTS, days, schedBeauty, schedHair, schedJapan, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
 import salonBeauty from "@/assets/salon_beauty.jpg";
@@ -90,7 +90,7 @@ function CoverSlide() {
 // ---- 2. Overview stats ----
 function StatsSlide() {
   const stats = [
-    { n: "168", l: "konten total (84 per akun)", c: "text-ggs-pink" },
+    { n: "168", l: "konten salon (84 per akun)", c: "text-ggs-pink" },
     { n: "3", l: "konten per hari untuk tiap akun", c: "text-ggs-gold" },
     { n: "2", l: "video maksimal per hari — selalu di-mix", c: "text-ggs-pink" },
     { n: "28", l: "hari tayang, 4 Nov – 1 Des 2026", c: "text-ggs-gold" },
@@ -115,8 +115,8 @@ function StatsSlide() {
       </div>
       <div className="absolute bottom-[110px] left-[76px] flex w-[1128px] items-center border-l-[10px] border-ggs-pink bg-ggs-pink-soft px-8 py-6">
         <p className="text-[16px] leading-relaxed text-ggs-ink">
-          Dua akun, dua kepribadian: GGS Beauty putih-pink, GGS Hair Studio hitam-gold. Podcast Ngopi Sore tayang
-          tiap Jumat jam 16.00 — libur 18–24 November (pemilik di luar negeri).
+          Tim salon tetap produksi 3 konten per hari per akun. Jadwal owner di Jepang terpisah: 27 materi
+          personal branding & lotion pada 16–24 November. Podcast libur selama owner di Jepang.
         </p>
       </div>
       <Footer n={2} />
@@ -277,7 +277,7 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
     <Stage dark={!light}>
       <div className="absolute top-[56px] left-[64px]">
         <Kicker color={light ? "pink" : "gold"}>
-          JADWAL MINGGUAN • {light ? "GGS BEAUTY" : "GGS HAIR STUDIO"}
+          PRODUKSI SALON • {light ? "GGS BEAUTY" : "GGS HAIR STUDIO"}
         </Kicker>
       </div>
       <h2
@@ -293,10 +293,39 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
         <WeekTable sched={light ? schedBeauty : schedHair} start={w * 7} light={light} />
       </div>
       <div className={`absolute bottom-[26px] left-[64px] text-[12px] ${light ? "text-ggs-gray" : "text-white/40"}`}>
-        {w === 2
-          ? "Minggu Jepang 16–24 November • Podcast libur, diganti Japan Diaries (personal branding owner) + Promo Lotion badan"
+        {w === 1 || w === 2
+          ? "16–24 November: tim salon tetap produksi • Podcast libur • konten owner & lotion ada di jadwal Jepang terpisah"
           : "Podcast Ngopi Sore tiap Jumat jam 16:00 • topik diputar per layanan • harga/promo wajib dikonfirmasi"}
       </div>
+    </Stage>
+  );
+}
+
+function JapanScheduleSlide({ part }: { part: number }) {
+  const start = part === 0 ? 0 : 5;
+  const end = part === 0 ? 5 : 9;
+  return (
+    <Stage>
+      <div className="absolute top-[56px] left-[64px]"><Kicker color="gold">PRODUKSI JEPANG • OWNER & PRODUK</Kicker></div>
+      <h2 className="slide-title absolute top-[96px] left-[64px] font-bold text-ggs-ink" style={HEAD}>Jadwal Jepang {part + 1}</h2>
+      <div className="absolute top-[112px] right-[64px] text-[17px] text-ggs-gray">{part === 0 ? "16–20" : "21–24"} November 2026</div>
+      <div className="absolute top-[180px] left-[64px] w-[1152px]">
+        <table className="w-full table-fixed border-collapse">
+          <thead><tr>{["Hari", "Lotion • Foto / Carousel", "Owner • Personal Branding", "Lotion • Foto / Carousel"].map((label, i) => <th key={`${i}-${label}`} className={`border border-border bg-ggs-gold-soft px-4 py-4 text-[15px] text-ggs-ink ${i === 0 ? "w-[155px]" : ""}`}>{label}</th>)}</tr></thead>
+          <tbody>{schedJapan.slice(start, end).map((row, offset) => {
+            const day = start + offset;
+            return <tr key={day} className="h-[76px]">
+              <td className="border border-border px-4 text-[14px] font-bold text-ggs-ink">{days[JAPAN_DAYS[0] + day]}</td>
+              {row.map((key, slot) => <td key={slot} className="border border-border px-4 py-3 text-center">
+                <div className="text-[12px] font-bold text-ggs-gold">{shortName(key)} · {scheduledBrief("beauty", schedJapan, day, slot)?.format.split(" • ")[0]}</div>
+                <div className="mt-2 text-[15px] leading-[1.35] text-ggs-ink">{scheduledBrief("beauty", schedJapan, day, slot)?.topic}</div>
+              </td>)}
+            </tr>;
+          })}</tbody>
+        </table>
+      </div>
+      <div className="absolute bottom-[66px] left-[64px] w-[1152px] text-[14px] leading-relaxed text-ggs-gray">27 materi produksi owner: {JAPAN_TARGET.jpn} vlog + {JAPAN_TARGET.lotion} foto/carousel lotion; terpisah dari 168 konten salon.<br />Ide lokasi menyesuaikan perjalanan aktual; nama, manfaat & harga lotion dikonfirmasi. Penempatan tayang dikoordinasikan dengan tim salon.</div>
+      <Footer n={18 + part} />
     </Stage>
   );
 }
@@ -333,10 +362,10 @@ function DistributionSlide() {
         <Kicker color="pink">07 — DISTRIBUSI</Kicker>
       </div>
       <h2 className="slide-title absolute top-[104px] left-[76px] font-bold text-ggs-ink" style={HEAD}>
-        Distribusi Konten per Akun
+        Distribusi Konten Salon per Akun
       </h2>
-      <div className="absolute top-[210px] left-[76px] grid h-[360px] w-[760px] grid-cols-7 items-end gap-4 border-b-2 border-border pb-0">
-        {PILLARS.map((p) => (
+      <div className="absolute top-[210px] left-[76px] grid h-[360px] w-[760px] grid-cols-5 items-end gap-4 border-b-2 border-border pb-0">
+        {PILLARS.filter((p) => p.key !== "jpn" && p.key !== "lotion").map((p) => (
           <div key={p.key} className="flex min-w-0 flex-col items-center gap-3">
             <div className="flex h-[300px] items-end gap-2">
               {(["beauty", "hair"] as const).map((b) => (
@@ -368,9 +397,10 @@ function DistributionSlide() {
         <div className="mt-3 text-[15px] text-ggs-gray">konten per akun dalam 28 hari</div>
         <div className="mt-8 border-l-2 border-ggs-gold pl-5 text-[14px] leading-relaxed text-ggs-ink">
           Komedi sengaja 12x — Si Elis di Beauty, Comedy di Hair Studio.
+          <br /><br />Jepang terpisah: 9 vlog + 18 foto/carousel lotion. Tidak dihitung dalam 84 konten salon per akun.
         </div>
       </div>
-      <Footer n={18} />
+      <Footer n={20} />
     </Stage>
   );
 }
@@ -512,6 +542,8 @@ export const slides: { id: string; el: () => ReactNode }[] = [
   ...[0, 1, 2, 3].map((w) => ({ id: `beauty-w${w + 1}`, el: () => <WeekSlide w={w} brand="beauty" /> })),
   { id: "section-hair", el: SectionHair },
   ...[0, 1, 2, 3].map((w) => ({ id: `hair-w${w + 1}`, el: () => <WeekSlide w={w} brand="hair" /> })),
+  { id: "japan-1", el: () => <JapanScheduleSlide part={0} /> },
+  { id: "japan-2", el: () => <JapanScheduleSlide part={1} /> },
   { id: "distribution", el: DistributionSlide },
   { id: "closing", el: ClosingSlide },
 ];

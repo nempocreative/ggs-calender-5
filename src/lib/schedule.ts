@@ -1,8 +1,8 @@
 // GGS content schedule generator — 28 days, 3 slots/day, per account.
 // Rules: podcast Ngopi Sore one episode per week (Friday 16:00), max 2 videos/day,
 // and every day always carries at least one non-video post (Promo / Promo Lotion).
-// Japan week (16–24 Nov): the owner is in Japan, so the podcast pauses and the feed
-// runs Japan Diaries (owner personal-branding vlog) + Promo Lotion (body lotion).
+// Salon production continues during the owner's Japan trip. Japan production is
+// a separate shared owner/product schedule, not part of each salon's 84 posts.
 
 export type PillarKey = "talk" | "elis" | "cine" | "ngobras" | "promo" | "jpn" | "lotion";
 
@@ -47,15 +47,15 @@ export const PILLARS: Pillar[] = [
   { key: "lotion", name: "Promo Lotion", full: "Promo Lotion Badan", desc: "Promosi produk lotion badan — foto produk, manfaat, dan ajakan beli.", video: false },
 ];
 
-// 3 podcast + 12 comedy + 12 cinematic + 11 ngobras + 19 promo + 9 Japan Diaries + 18 Promo Lotion = 84.
+// Salon-only totals: 84 posts per account; Japan production is counted separately.
 export const TARGET: Record<PillarKey, number> = {
   talk: 3,
   elis: 12,
-  cine: 12,
-  ngobras: 11,
-  promo: 19,
-  jpn: 9,
-  lotion: 18,
+  cine: 21,
+  ngobras: 20,
+  promo: 28,
+  jpn: 0,
+  lotion: 0,
 };
 
 export const SLOTS = ["11:00", "16:00", "19:30"];
@@ -65,23 +65,23 @@ export const PODCAST_DAYS = [2, 9, 23];
 export const PODCAST_BLACKOUT: [number, number] = [12, 20]; // 16–24 November 2026
 // Japan content week: 16–24 November 2026 (owner trip) — Japan Diaries + Promo Lotion.
 export const JAPAN_DAYS: [number, number] = [12, 20];
+export const JAPAN_TARGET = { jpn: 9, lotion: 18 };
+export const schedJapan: string[][] = Array.from({ length: 9 }, () => ["lotion", "jpn", "lotion"]);
 
 function buildSchedule(promoFirst: boolean, comedyOffset: number): string[][] {
   const counts: Record<PillarKey, number> = { ...TARGET };
   const result: string[][] = [];
   const podcast = new Set(PODCAST_DAYS.filter((d) => d < PODCAST_BLACKOUT[0] || d > PODCAST_BLACKOUT[1]));
-  const japan = new Set<number>();
-  for (let d = JAPAN_DAYS[0]; d <= JAPAN_DAYS[1]; d++) japan.add(d);
-
   const normalDays: number[] = [];
-  for (let d = 0; d < 28; d++) if (!podcast.has(d) && !japan.has(d)) normalDays.push(d);
+  for (let d = 0; d < 28; d++) if (!podcast.has(d)) normalDays.push(d);
 
-  // Comedy (12x) spread over the 19 plain days; the offset keeps the two accounts apart.
+  // Comedy (12x) spread over non-podcast days; the accounts have different offsets.
   const comedyDays = new Set<number>();
   for (let i = 0, prev = 0; i < normalDays.length; i++) {
     const upto = Math.round(((i + 1) * TARGET.elis) / normalDays.length);
     if (upto > prev) {
-      comedyDays.add(normalDays[(i + comedyOffset) % normalDays.length]!);
+      const day = normalDays[(i + comedyOffset) % normalDays.length];
+      if (day !== undefined) comedyDays.add(day);
       prev = upto;
     }
   }
@@ -114,21 +114,6 @@ function buildSchedule(promoFirst: boolean, comedyOffset: number): string[][] {
         cells[2] = "promo";
       }
       counts.promo--;
-    } else if (japan.has(d)) {
-      // Japan week: Japan Diaries vlog + Promo Lotion (non-video) + one more post.
-      counts.jpn--;
-      counts.lotion--;
-      if (promoFirst) {
-        cells[0] = "lotion";
-        cells[1] = "jpn";
-        cells[2] = "lotion";
-        counts.lotion--;
-      } else {
-        cells[0] = "jpn";
-        cells[1] = "lotion";
-        cells[2] = "lotion";
-        counts.lotion--;
-      }
     } else {
       // Normal day: two videos + one promo, never three videos.
       let vids: [PillarKey, PillarKey];
