@@ -176,3 +176,18 @@
 .slide-body { font-size: var(--slide-body); line-height: 1.35; }
 .slide-stat { font-size: var(--slide-stat); line-height: 1; }
 .slide-content [class*="tracking-"] { letter-spacing: 0; }
+
+.content-type-flag {
+  display: inline-flex;
+  width: 58px;
+  height: 18px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding-right: 5px;
+  clip-path: polygon(0 0, 100% 0, 90% 50%, 100% 100%, 0 100%);
+  font-size: 9px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
