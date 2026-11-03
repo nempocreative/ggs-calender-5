@@ -56,10 +56,10 @@ export const briefs: Record<Brand, Record<PillarKey, ContentBrief[]>> = {
       { service: "Keratin Smoothing", topic: "Keratin untuk gaya rambut pria", format: "Carousel • 4 halaman", flow: "Foto kondisi rambut → barber jelaskan menu smoothing → konsultasi kecocokan dan perawatan → ajakan konsultasi tanpa janji hasil pasti." },
     ],
     elis: [
-      { service: "Dewasa", category: "HAIR CUT", topic: "Elis bawa referensi artis", format: "Reels • 20–30 detik", flow: "Referensi terlalu banyak → barber jelaskan bentuk rambut → Elis akhirnya sepakat → reveal potongan rapi, bukan hasil gagal." },
-      { service: "Potong Jenggot", topic: "Jenggot paling disayang Elis", format: "Reels • 20–30 detik", flow: "Elis minta sedikit saja → konfirmasi bentuk → ekspresi lucu saat dirapikan → hasil detail jenggot." },
-      { service: "Paket G (Ganteng) — Potong + Pijat Bahu (15 menit)", topic: "Potong sekaligus santai", format: "Reels • 20–30 detik", flow: "Elis buru-buru datang → selesai potong ingin pijat terus → punchline → tampilkan dua isi Paket G." },
-      { service: "Potong Kumis", topic: "Kumis Elis, sedikit saja!", format: "Reels • 20–30 detik", flow: "Elis berulang kali bilang sedikit → barber konfirmasi bentuk → close-up rapikan kumis → reaksi puas dengan punchline ringan." },
+      { service: "Dewasa", category: "HAIR CUT", topic: "Bawa banyak referensi, pulang satu model", format: "Reels • 20–30 detik", flow: "Klien datang bawa banyak referensi → barber jelaskan bentuk rambut yang cocok → deal satu model → reveal potongan rapi, bukan hasil gagal." },
+      { service: "Potong Jenggot", topic: "Jenggot cuma dirapikan “sedikit”", format: "Reels • 20–30 detik", flow: "Klien minta sedikit saja → konfirmasi bentuk → ekspresi lucu saat dirapikan → hasil detail jenggot." },
+      { service: "Paket G (Ganteng) — Potong + Pijat Bahu (15 menit)", topic: "Potong sekaligus santai", format: "Reels • 20–30 detik", flow: "Klien buru-buru datang → selesai potong ingin pijat terus → punchline → tampilkan dua isi Paket G." },
+      { service: "Potong Kumis", topic: "Kumis, sedikit saja!", format: "Reels • 20–30 detik", flow: "Klien berulang kali bilang sedikit → barber konfirmasi bentuk → close-up rapikan kumis → reaksi puas dengan punchline ringan." },
     ],
     cine: [
       { service: "Dewasa", category: "HAIR CUT", topic: "Detail potongan dewasa", format: "Reels • 25–40 detik", flow: "Rambut awal → konsultasi model → close-up gunting dan rapikan tepi → reveal depan, samping, belakang." },
