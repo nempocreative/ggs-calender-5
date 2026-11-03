@@ -17,12 +17,13 @@ export const PILLARS: Pillar[] = [
   { key: "promo", name: "Promo", full: "Promo", desc: "Promo produk, harga spesial, dan informasi layanan.", video: false },
 ];
 
-export const TARGET: Record<string, number> = { talk: 18, elis: 12, cine: 18, ngobras: 18, promo: 18 }; // 84 per account
+export const TARGET = { talk: 18, elis: 12, cine: 18, ngobras: 18, promo: 18 } as const; // 84 per account
+type PillarKey = keyof typeof TARGET;
 
 export const SLOTS = ["11:00", "16:00", "19:30"];
 
 function buildSchedule(extraDays: number[], promoFirst: boolean): string[][] {
-  const counts = { ...TARGET };
+  const counts: Record<PillarKey, number> = { ...TARGET };
   const result: string[][] = [];
 
   // 1) day types: nv2 (talk+promo+1 video) / talk-only / promo-only
