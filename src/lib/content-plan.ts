@@ -1,4 +1,5 @@
 import catalog from "./service-catalog.json";
+import { japanBriefs } from "./japan-content";
 import type { PillarKey } from "./schedule";
 
 export type Brand = "beauty" | "hair";
@@ -47,20 +48,8 @@ export const briefs: Record<Brand, Record<PillarKey, ContentBrief[]>> = {
       { service: "Pendek", category: "KERATIN TREATMENT", topic: "Kenali menu keratin treatment", format: "Carousel • 3 halaman", flow: "Foto rambut asli → sebut menu Keratin Treatment untuk rambut pendek → bedakan dari smoothing bersama stylist → CTA konsultasi, harga dikonfirmasi." },
       { service: "Waxing Ketiak", topic: "Kenali layanan waxing ketiak", format: "Carousel • 3 halaman", flow: "Foto ruang dan perlengkapan, bukan area tubuh pribadi → jelaskan layanan bersama terapis → konsultasi sebelum treatment + CTA reservasi." },
     ],
-    jpn: [
-      { service: "Japan Diaries", topic: "Hari 1: Senso-ji & Nakamise", format: "Vlog • 45–60 detik", flow: "Owner buka vlog dari Asakusa → jalan di Nakamise Shopping Street → cerita singkat kenapa GGS dibuat → tutup dengan ajakan follow perjalanan." },
-      { service: "Japan Diaries", topic: "Shibuya Crossing & Shibuya Sky", format: "Vlog • 45–60 detik", flow: "Rekam suasana Shibuya Crossing → sunset di Shibuya Sky → owner cerita mimpi membesarkan GGS → CTA komen." },
-      { service: "Japan Diaries", topic: "Harajuku & Omotesando", format: "Vlog • 45–60 detik", flow: "Jalan di Takeshita Street → lihat tren fashion dan beauty Jepang → owner sharing inspirasi untuk GGS Beauty → ajakan diskusi di kolom komen." },
-      { service: "Japan Diaries", topic: "Day trip: Gunung Fuji & Chureito Pagoda", format: "Vlog • 45–60 detik", flow: "Perjalanan ke Kawaguchiko → view Fuji dan pagoda → momen refleksi owner soal perjalanan bisnis → tutup dengan ucapan terima kasih ke pelanggan." },
-      { service: "Japan Diaries", topic: "Ginza & Tokyo Tower", format: "Vlog • 45–60 detik", flow: "Suasana Ginza → Tokyo Tower city view → owner umumkan rencana sepulang dari Jepang → CTA booking treatment." },
-    ],
-    lotion: [
-      { service: "Lotion Badan GGS", topic: "Kenalan sama lotion badan GGS", format: "Foto feed • 1 gambar", flow: "Foto produk bersih dengan latar pink/hitam-gold → nama produk → 3 manfaat utama → CTA beli di salon atau DM." },
-      { service: "Lotion Badan GGS", topic: "Cara pakai yang benar", format: "Carousel • 3 halaman", flow: "Halaman 1 foto produk → halaman 2 langkah pemakaian setelah mandi → halaman 3 tips konsisten + CTA." },
-      { service: "Lotion Badan GGS", topic: "Tekstur dan aroma", format: "Foto feed • 1 gambar", flow: "Close-up tekstur lotion di tangan → deskripsikan aroma dan rasa di kulit → CTA coba langsung di salon." },
-      { service: "Lotion Badan GGS", topic: "Stok dibawa dari Jepang", format: "Foto feed • 1 gambar", flow: "Foto produk dengan suasana Jepang → cerita owner bawa langsung dari Jepang → info stok terbatas → CTA pre-order via DM." },
-      { service: "Lotion Badan GGS", topic: "Lotion + treatment, combo pas", format: "Carousel • 3 halaman", flow: "Foto produk → jelaskan combo lotion dengan lulur/masker badan → ajakan booking treatment + beli produk." },
-    ],
+    jpn: japanBriefs.jpn,
+    lotion: japanBriefs.lotion,
   },
   hair: {
     talk: [
@@ -93,20 +82,8 @@ export const briefs: Record<Brand, Record<PillarKey, ContentBrief[]>> = {
       { service: "Highlight No Bleaching", topic: "Pilihan highlight", format: "Foto feed • 1 gambar", flow: "Foto hasil highlight asli → nama Highlight No Bleaching → konsultasi referensi warna → ajakan reservasi." },
       { service: "Paket GP (Ganteng Pisan) — Potong + Pijat Kepala Bahu + Keramas (15 menit)", topic: "Tiga layanan dalam Paket GP", format: "Carousel • 3 halaman", flow: "Foto hasil potong → rincian potong, pijat kepala bahu dan keramas → nama Paket GP + CTA booking; harga dikonfirmasi salon." },
     ],
-    jpn: [
-      { service: "Japan Diaries", topic: "Hari 1: Senso-ji & Nakamise", format: "Vlog • 45–60 detik", flow: "Owner buka vlog dari Asakusa → jalan di Nakamise Shopping Street → cerita awal membangun GGS Hair Studio → ajakan follow perjalanan." },
-      { service: "Japan Diaries", topic: "Hunting barbershop di Tokyo", format: "Vlog • 45–60 detik", flow: "Kunjungi barbershop lokal → amati teknik dan pelayanan → owner sharing insight untuk GGS Hair Studio → CTA komen." },
-      { service: "Japan Diaries", topic: "Shibuya & Harajuku street style", format: "Vlog • 45–60 detik", flow: "Rekam gaya rambut dan fashion pria di Shibuya–Harajuku → owner bahas tren yang bisa dibawa ke GGS → ajakan diskusi di komen." },
-      { service: "Japan Diaries", topic: "Day trip: Gunung Fuji & Chureito Pagoda", format: "Vlog • 45–60 detik", flow: "Perjalanan ke Kawaguchiko → view Fuji dan pagoda → refleksi owner soal perjalanan bisnis → terima kasih ke pelanggan setia." },
-      { service: "Japan Diaries", topic: "Akihabara & Tokyo Tower", format: "Vlog • 45–60 detik", flow: "Suasana Akihabara → Tokyo Tower city view → owner umumkan rencana sepulang dari Jepang → CTA booking." },
-    ],
-    lotion: [
-      { service: "Lotion Badan GGS", topic: "Kenalan sama lotion badan GGS", format: "Foto feed • 1 gambar", flow: "Foto produk dengan latar hitam-gold → nama produk → 3 manfaat utama → CTA beli di studio atau DM." },
-      { service: "Lotion Badan GGS", topic: "Cara pakai yang benar", format: "Carousel • 3 halaman", flow: "Halaman 1 foto produk → halaman 2 langkah pemakaian setelah mandi → halaman 3 tips konsisten + CTA." },
-      { service: "Lotion Badan GGS", topic: "Tekstur dan aroma", format: "Foto feed • 1 gambar", flow: "Close-up tekstur lotion di tangan → deskripsikan aroma dan rasa di kulit → CTA coba langsung di studio." },
-      { service: "Lotion Badan GGS", topic: "Stok dibawa dari Jepang", format: "Foto feed • 1 gambar", flow: "Foto produk dengan suasana Jepang → cerita owner bawa langsung dari Jepang → info stok terbatas → CTA pre-order via DM." },
-      { service: "Lotion Badan GGS", topic: "Lotion + creambath, combo pas", format: "Carousel • 3 halaman", flow: "Foto produk → jelaskan combo lotion dengan creambath/pijat → ajakan booking + beli produk." },
-    ],
+    jpn: japanBriefs.jpn,
+    lotion: japanBriefs.lotion,
   },
 };
 
