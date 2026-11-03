@@ -115,10 +115,86 @@ export function catalogService(brand: Brand, brief: ContentBrief) {
 }
 
 export function scheduledBrief(brand: Brand, schedule: string[][], day: number, slot: number) {
-  const key = schedule[day]?.[slot] as PillarKey | undefined;
-  if (!key || !briefs[brand][key]) return undefined;
-  const occurrence = schedule.slice(0, day).flat().filter((k) => k === key).length +
-    (schedule[day]?.slice(0, slot).filter((k) => k === key).length ?? 0);
-  const options = briefs[brand][key];
-  return options[occurrence % options.length];
+  return assign(brand, schedule)[day]?.[slot];
+}
+
+// ---- FYP expansion: unique creative hooks so every post in the month has its own topic ----
+type Svc = { brand: string; category: string; name: string };
+const label = (s: Svc) => {
+  const base = s.name.split(" — ")[0] ?? s.name;
+  if (/^(Pendek|Sedang|Panjang)$/.test(base)) {
+    const cat = (s.category.split(" · ")[0] ?? "").toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+    return `${cat} ${base}`;
+  }
+  return base;
+};
+const SKIP = new Set(["MINUMAN"]);
+const HOOKS: Record<"elis" | "cine" | "ngobras" | "promo", { topic: (l: string) => string; format: string; flow: (l: string) => string }[]> = {
+  elis: [
+    { topic: (l) => `POV: pertama kali coba ${l}`, format: "Reels • 20–30 detik", flow: (l) => `Hook ekspresi panik 2 detik → konsultasi ${l} → twist lucu → reveal hasil asli + trending sound.` },
+    { topic: (l) => `Ekspektasi vs realita ${l}`, format: "Reels • 20–30 detik", flow: (l) => `Split screen ekspektasi lebay → realita proses ${l} → punchline → hasil rapi.` },
+    { topic: (l) => `Tipe-tipe pelanggan ${l}`, format: "Reels • 20–30 detik", flow: (l) => `3 karakter pelanggan diperankan satu talent → tiap tipe minta ${l} → punchline di akhir.` },
+    { topic: (l) => `Bilangnya "dikit aja" waktu ${l}`, format: "Reels • 20–30 detik", flow: (l) => `Klien ulang-ulang minta sedikit → konfirmasi ${l} → reaksi kaget → hasil memuaskan.` },
+  ],
+  cine: [
+    { topic: (l) => `ASMR ${l}`, format: "Reels • 25–40 detik", flow: (l) => `Tanpa musik, suara asli alat → close-up proses ${l} → slow-mo detail → hasil akhir.` },
+    { topic: (l) => `Transformasi 15 detik: ${l}`, format: "Reels • 15–20 detik", flow: (l) => `Before 1 detik → jump cut cepat proses ${l} → beat drop → after di cahaya sama.` },
+    { topic: (l) => `Satisfying detail ${l}`, format: "Reels • 25–40 detik", flow: (l) => `Macro shot tekstur → gerakan tangan profesional saat ${l} → reveal 360°.` },
+    { topic: (l) => `Behind the chair: ${l}`, format: "Reels • 25–40 detik", flow: (l) => `POV kamera dari sisi stylist/terapis → langkah ${l} → senyum pelanggan berizin.` },
+  ],
+  ngobras: [
+    { topic: (l) => `Kenapa pilih ${l}? Jawabannya…`, format: "Reels • 30–45 detik", flow: (l) => `Teks hook pertanyaan → pelanggan jawab jujur sambil ${l} → cuplikan proses → kesan akhir.` },
+    { topic: (l) => `Rate ${l} 1–10`, format: "Reels • 30–45 detik", flow: (l) => `Minta izin → pelanggan kasih nilai sebelum & sesudah ${l} → alasan nilainya → CTA komen.` },
+    { topic: (l) => `Street-style interview saat ${l}`, format: "Reels • 30–45 detik", flow: (l) => `Mic kecil + pertanyaan random → obrolan ringan selama ${l} → momen lucu → hasil.` },
+    { topic: (l) => `Curhat pelanggan sambil ${l}`, format: "Reels • 30–45 detik", flow: (l) => `Pertanyaan pembuka santai → cerita pelanggan saat ${l} → quote terbaik jadi teks → kesan.` },
+  ],
+  promo: [
+    { topic: (l) => `Menu spotlight: ${l}`, format: "Foto feed • 1 gambar", flow: (l) => `Foto hasil asli ${l} → nama layanan jelas → harga dikonfirmasi salon → CTA booking.` },
+    { topic: (l) => `Swipe: 3 alasan coba ${l}`, format: "Carousel • 3 halaman", flow: (l) => `Halaman 1 hook → halaman 2 isi layanan ${l} → halaman 3 CTA reservasi, tanpa diskon rekaan.` },
+    { topic: (l) => `Cocok buat kamu yang… (${l})`, format: "Carousel • 3 halaman", flow: (l) => `Checklist situasi pelanggan → solusi ${l} → konsultasi dulu + CTA DM.` },
+    { topic: (l) => `Story poll: siapa mau ${l}?`, format: "Story • poll + link", flow: (l) => `Foto ${l} → stiker poll → follow-up DM ke yang vote → link booking.` },
+  ],
+};
+for (const brand of ["beauty", "hair"] as Brand[]) {
+  const pool = (catalog as Svc[]).filter((s) => s.brand === brand && !SKIP.has(s.category) && (brand === "hair" || s.category !== "PRODUK"));
+  for (const key of Object.keys(HOOKS) as (keyof typeof HOOKS)[]) {
+    const list = briefs[brand][key];
+    const seen = new Set(list.map((b) => b.topic));
+    const offset = { elis: 0, cine: 7, ngobras: 13, promo: 19 }[key];
+    for (let i = 0; list.length < 32 && i < pool.length * HOOKS[key].length; i++) {
+      const s = pool[(i * 5 + offset) % pool.length]!;
+      const h = HOOKS[key][Math.floor(i / pool.length) % HOOKS[key].length]!;
+      const l = label(s);
+      const b: ContentBrief = { service: s.name, ...(/^(Pendek|Sedang|Panjang)$/.test(s.name) || brand === "hair" ? { category: s.category } : {}), topic: h.topic(l), format: h.format, flow: h.flow(l) };
+      if (brand === "hair" && key === "elis" && /Elis/.test(b.topic)) continue;
+      if (seen.has(b.topic)) continue;
+      seen.add(b.topic);
+      list.push(b);
+    }
+  }
+}
+
+// Assign briefs across the month: each topic used once, never two posts of the same service on one day.
+const assignCache = new Map<string, (ContentBrief | undefined)[][]>();
+function assign(brand: Brand, schedule: string[][]) {
+  const id = brand + JSON.stringify(schedule);
+  const hit = assignCache.get(id);
+  if (hit) return hit;
+  const used: Record<string, Set<number>> = {};
+  const out = schedule.map((row) => {
+    const today = new Set<string>();
+    return row.map((k) => {
+      const opts = briefs[brand][k as PillarKey];
+      if (!opts) return undefined;
+      const u = (used[k] ??= new Set());
+      if (u.size >= opts.length) u.clear();
+      let idx = opts.findIndex((b, i) => !u.has(i) && !today.has(b.service));
+      if (idx < 0) idx = opts.findIndex((_, i) => !u.has(i));
+      u.add(idx);
+      if (k !== "jpn" && k !== "lotion") today.add(opts[idx]!.service);
+      return opts[idx];
+    });
+  });
+  assignCache.set(id, out);
+  return out;
 }
