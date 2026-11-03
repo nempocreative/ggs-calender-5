@@ -31,7 +31,7 @@ export const hookBank: Record<Brand, { pillar: string; lines: string[] }[]> = {
     {
       pillar: "GGS Talk",
       lines: [
-        "Cewek Garut mana yang belum ngopi sore? ☕",
+        "Cewek Garut mana yang belum ngopi sore?",
         "Kita ngomongin [topik] tanpa nada ceramah.",
         "Ini pertanyaan yang paling sering kamu tanya.",
       ],
@@ -39,16 +39,16 @@ export const hookBank: Record<Brand, { pillar: string; lines: string[] }[]> = {
     {
       pillar: "Si Elis",
       lines: [
-        "POV: Elis first time ke salon ✨",
-        "Ekspektasi: glow up. Realita: [punchline] 😭",
-        "Tipe-tipe customer kalau dipanggil nama 🙃",
+        "POV: Elis first time ke salon",
+        "Ekspektasi: glow up. Realita: [punchline]",
+        "Tipe-tipe customer kalau dipanggil nama",
       ],
     },
     {
       pillar: "Cinematic",
       lines: [
         "8 detik ini bikin kepala ikut rileks.",
-        "Suara busa + hair spa = therapy 🫧",
+        "Suara busa + hair spa = therapy",
         "Jangan di-skip, 5 detik terakhir worth it.",
       ],
     },
@@ -63,7 +63,7 @@ export const hookBank: Record<Brand, { pillar: string; lines: string[] }[]> = {
     {
       pillar: "Promo",
       lines: [
-        "Sabtu-mu belum ada rencana? Save dulu 💗",
+        "Sabtu-mu belum ada rencana? Save dulu",
         "3 alasan customer balik lagi ke [layanan].",
         "Kamu tim [layanan] atau tim [layanan]?",
       ],
@@ -73,7 +73,7 @@ export const hookBank: Record<Brand, { pillar: string; lines: string[] }[]> = {
     {
       pillar: "GGS Talk",
       lines: [
-        "Cowok Garut, ngopi dulu sebelum cut ☕",
+        "Cowok Garut, ngopi dulu sebelum cut",
         "Barber kami jawab: [topik], tanpa basa-basi.",
         "Topik yang bikin kursi barber paling ribut.",
       ],
@@ -81,15 +81,15 @@ export const hookBank: Record<Brand, { pillar: string; lines: string[] }[]> = {
     {
       pillar: "Comedy",
       lines: [
-        "POV: disuruh pacar ke barber 💈",
-        "Kata barber \"dikit aja\"… beneran dikit 😭",
-        "Tipe-tipe cowok kalau lagi di-barber 🙃",
+        "POV: disuruh pacar ke barber",
+        "Kata barber \"dikit aja\"… beneran dikit",
+        "Tipe-tipe cowok kalau lagi di-barber",
       ],
     },
     {
       pillar: "Cinematic",
       lines: [
-        "3 detik pertama: dengerin fade-nya 🖤",
+        "3 detik pertama: dengerin fade-nya",
         "Dari berantakan ke rapi. Tonton sampai habis.",
         "Ini yang bikin potong rambut kerasa mahal.",
       ],
@@ -99,7 +99,7 @@ export const hookBank: Record<Brand, { pillar: string; lines: string[] }[]> = {
       lines: [
         "Kita tanya: kenapa pilih model [potongan]?",
         "Rate potongan minggu ini 1–10, bro.",
-        "Ngobrol kerja & hobi sambil dipangkas 💈",
+        "Ngobrol kerja & hobi sambil dipangkas",
       ],
     },
     {

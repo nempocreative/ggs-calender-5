@@ -578,7 +578,7 @@ function CaptionSlide({ brand, num }: { brand: Brand; num: number }) {
         ] as const).map(([t, list, isLocal]) => (
           <div key={t}>
             <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>
-              {isLocal ? `📍 ${t}` : t}
+              {t}
             </div>
             <div className="flex flex-wrap gap-1.5">
               {list.map((h) => (
