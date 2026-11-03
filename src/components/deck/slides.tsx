@@ -261,7 +261,7 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
       <thead>
         <tr>
           {["Hari", ...SLOTS].map((h) => (
-            <th key={h} className={`border ${borderCls} ${headerCls} px-3 py-2.5 text-center text-[16px] font-bold ${h === "Hari" ? "w-[155px]" : ""}`}>
+            <th key={h} className={`border ${borderCls} ${headerCls} px-3 py-2 text-center text-[15px] font-bold ${h === "Hari" ? "w-[155px]" : ""}`}>
               {h}
             </th>
           ))}
@@ -274,9 +274,9 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
               {days[start + d]}
             </td>
             {cells.map((k, s) => (
-              <td key={s} className={`border ${borderCls} ${cellCls} px-3 py-2 text-center`}>
+              <td key={s} className={`border ${borderCls} ${cellCls} px-2.5 py-1.5 text-center`}>
                 <div className="text-[12px] font-bold">{shortName(k, light ? "beauty" : "hair")}<TypeBadge k={k} /> · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
-                <div className="mt-1 text-[14px] leading-[1.3]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
+                <div className="mt-0.5 text-[13px] leading-[1.25]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
               </td>
             ))}
           </tr>
