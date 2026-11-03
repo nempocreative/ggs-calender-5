@@ -169,7 +169,7 @@ function PillarsSlide() {
       </div>
       <div className="absolute top-[600px] left-[76px] flex w-[1128px] items-center gap-8 border-l-2 border-ggs-gold pl-5">
         <div className="shrink-0 text-[14px] font-bold text-ggs-ink">KHUSUS 16–24 NOV</div>
-        <div className="text-[15px] leading-relaxed text-ggs-gray">Japan Diaries — personal branding owner<br />Promo Lotion — foto produk & carousel</div>
+        <div className="text-[15px] leading-relaxed text-ggs-gray">Japan Diaries — personal branding owner<br />Promo Lotion Tone Up — foto produk & carousel</div>
       </div>
       <Footer n={3} />
     </Stage>
