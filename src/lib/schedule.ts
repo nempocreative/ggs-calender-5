@@ -44,7 +44,7 @@ export const PILLARS: Pillar[] = [
   { key: "ngobras", name: "Ngobras", full: "Ngobras bareng Konsumen", desc: "Ngobrol santai bareng konsumen sambil treatment.", video: true },
   { key: "promo", name: "Promo", full: "Promo", desc: "Promo produk, harga spesial, dan informasi layanan.", video: false },
   { key: "jpn", name: "Japan Diaries", full: "Japan Diaries — Personal Branding Owner", desc: "Vlog owner selama di Jepang: keseharian, tempat ikonik, dan cerita di balik GGS.", video: true },
-  { key: "lotion", name: "Promo Lotion", full: "Promo Lotion Badan", desc: "Promosi produk lotion badan — foto produk, manfaat, dan ajakan beli.", video: false },
+  { key: "lotion", name: "Promo Lotion", full: "Promo Lotion Tone Up", desc: "Promosi produk lotion badan tone up — foto produk, tone-up sebagai identitas produk, dan ajakan beli.", video: false },
 ];
 
 // Salon-only totals: 84 posts per account; Japan production is counted separately.
