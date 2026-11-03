@@ -47,15 +47,15 @@ export const PILLARS: Pillar[] = [
   { key: "lotion", name: "Promo Lotion", full: "Promo Lotion Badan", desc: "Promosi produk lotion badan — foto produk, manfaat, dan ajakan beli.", video: false },
 ];
 
-// 3 podcast + 12 comedy + 18 cinematic + 17 ngobras + 16 promo + 9 Japan Diaries + 9 Promo Lotion = 84.
+// 3 podcast + 12 comedy + 12 cinematic + 11 ngobras + 19 promo + 9 Japan Diaries + 18 Promo Lotion = 84.
 export const TARGET: Record<PillarKey, number> = {
   talk: 3,
   elis: 12,
-  cine: 18,
-  ngobras: 17,
-  promo: 16,
+  cine: 12,
+  ngobras: 11,
+  promo: 19,
   jpn: 9,
-  lotion: 9,
+  lotion: 18,
 };
 
 export const SLOTS = ["11:00", "16:00", "19:30"];

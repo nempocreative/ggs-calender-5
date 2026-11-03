@@ -55,7 +55,8 @@ describe("Podcast Ngopi Sore cadence", () => {
 describe("Repository-backed service content", () => {
   for (const brand of ["beauty", "hair"] as Brand[]) {
     it(`${brand}: every brief uses a service from the supplied repository menu`, () => {
-      for (const pillar of PILLARS) {
+      // Japan Diaries and Promo Lotion are owner/product content, not salon menu services.
+      for (const pillar of PILLARS.filter((p) => p.key !== "jpn" && p.key !== "lotion")) {
         for (const brief of briefs[brand][pillar.key]) {
           expect(catalogService(brand, brief), `${pillar.key}: ${brief.service}`).toBeDefined();
         }
