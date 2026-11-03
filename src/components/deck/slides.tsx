@@ -270,7 +270,7 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
       <tbody>
         {sched.slice(start, start + 7).map((cells, d) => (
           <tr key={d} className="h-[65px]">
-            <td className={`border ${borderCls} ${dayCls} px-3 py-2.5 text-left text-[14px] font-bold`}>
+            <td className={`border ${borderCls} ${dayCls} px-3 py-2 text-left text-[14px] font-bold`}>
               {days[start + d]}
             </td>
             {cells.map((k, s) => (
