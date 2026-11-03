@@ -198,5 +198,5 @@ function genericFlow(e: TalkEpisode): [string, string][] {
 
 export function episodeFlow(e: TalkEpisode): EpisodeStep[] {
   const f = FLOWS[e.topic] ?? genericFlow(e);
-  return f.map(([q, note], i) => ({ t: STEPS[i], name: NAMES[i], q, note }));
+  return f.map(([q, note], i) => ({ t: STEPS[i] ?? "", name: NAMES[i] ?? "", q, note }));
 }
