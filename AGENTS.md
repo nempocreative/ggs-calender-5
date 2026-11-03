@@ -14,3 +14,4 @@ Service content briefs must resolve to the bundled service catalog and feed both
 Preserve the existing 1280×720 deck stage and scaling system; semantic slide typography tokens in src/styles.css control headings and key text consistently without resizing compact table or footer text.
 Show the five core pillars separately from the Japan-period supplement; supplemental content must not add rows beyond the core pillar layout's space budget.
 Maintain independent salon and shared owner-trip production schedules and totals; owner/product briefs must never replace catalog-backed salon entries or be duplicated as separate brand shoots.
+Keep owner-trip briefs in one shared content module consumed by both brand references, so Japan topics cannot diverge or duplicate brand shoots.

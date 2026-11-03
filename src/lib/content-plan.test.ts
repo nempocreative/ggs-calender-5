@@ -88,6 +88,20 @@ describe("Repository-backed service content", () => {
 });
 
 describe("Separate Japan and salon production", () => {
+  it("Japan contains 27 distinct topics: nine owner videos and eighteen lotion designs", () => {
+    const posts = schedJapan.flatMap((row, day) => row.map((_, slot) => scheduledBrief("beauty", schedJapan, day, slot)));
+    expect(posts.every(Boolean)).toBe(true);
+    expect(new Set(posts.map((post) => post?.topic)).size).toBe(27);
+    expect(new Set(briefs.beauty.jpn.map((post) => post.topic)).size).toBe(9);
+    expect(new Set(briefs.beauty.lotion.map((post) => post.topic)).size).toBe(18);
+  });
+  it("Japan uses one shared shoot list rather than separate brand shoots", () => {
+    expect(briefs.hair.jpn).toBe(briefs.beauty.jpn);
+    expect(briefs.hair.lotion).toBe(briefs.beauty.lotion);
+    schedJapan.forEach((row, day) => row.forEach((_, slot) => {
+      expect(scheduledBrief("hair", schedJapan, day, slot)).toBe(scheduledBrief("beauty", schedJapan, day, slot));
+    }));
+  });
   it("Japan has its own nine-day schedule, 16–24 November, for owner and lotion only", () => {
     expect(JAPAN_DAYS).toEqual([12, 20]);
     expect(schedJapan).toHaveLength(9);
