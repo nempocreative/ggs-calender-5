@@ -360,7 +360,7 @@ function DistributionSlide() {
           Si Elis sengaja 12x — jeda antar komedi menjaga kesegaran konten.
         </div>
       </div>
-      <Footer n={19} />
+      <Footer n={18} />
     </Stage>
   );
 }
@@ -590,7 +590,7 @@ function FlowSlide() {
           Konsisten lebih penting daripada sempurna: konten tayang setiap hari sesuai jadwal, bukan saat mood datang.
         </p>
       </div>
-      <Footer n={9} />
+      <Footer n={7} />
     </Stage>
   );
 }
@@ -600,6 +600,9 @@ export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "stats", el: StatsSlide },
   { id: "pillars", el: PillarsSlide },
   { id: "rhythm", el: RhythmSlide },
+  { id: "ideas-beauty", el: () => <ContentIdeasSlide brand="beauty" num={5} /> },
+  { id: "ideas-hair", el: () => <ContentIdeasSlide brand="hair" num={6} /> },
+  { id: "flow", el: FlowSlide },
   { id: "section-beauty", el: SectionBeauty },
   ...[0, 1, 2, 3].map((w) => ({ id: `beauty-w${w + 1}`, el: () => <WeekSlide w={w} brand="beauty" /> })),
   { id: "section-hair", el: SectionHair },
