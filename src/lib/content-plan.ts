@@ -121,7 +121,7 @@ export function scheduledBrief(brand: Brand, schedule: string[][], day: number, 
 // ---- FYP expansion: unique creative hooks so every post in the month has its own topic ----
 type Svc = { brand: string; category: string; name: string };
 const label = (s: Svc) => {
-  const base = s.name.split(" — ")[0];
+  const base = s.name.split(" — ")[0] ?? s.name;
   if (/^(Pendek|Sedang|Panjang)$/.test(base)) {
     const cat = (s.category.split(" · ")[0] ?? "").toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
     return `${cat} ${base}`;
