@@ -651,7 +651,72 @@ function HookSlide({ brand, num }: { brand: Brand; num: number }) {
   );
 }
 
+// ---- GGS Talk (podcast Ngopi Sore) guide ----
+function TalkSlide({ brand, num }: { brand: Brand; num: number }) {
+  const b = brand === "beauty";
+  const accent = b ? "text-ggs-pink" : "text-ggs-gold";
+  const ink = b ? "text-ggs-ink" : "text-primary-foreground";
+  const muted = b ? "text-ggs-gray" : "text-primary-foreground/65";
+  const line = b ? "border-border" : "border-primary-foreground/15";
+  const panel = b ? "bg-ggs-pink-soft" : "bg-ggs-gold-soft";
+  return (
+    <Stage dark={!b}>
+      <div className="absolute top-[42px] left-[64px]">
+        <Kicker color={b ? "pink" : "gold"}>{b ? "GGS BEAUTY" : "GGS HAIR STUDIO"} • ACUAN GGS TALK</Kicker>
+      </div>
+      <h2 className={`slide-title absolute top-[80px] left-[64px] font-bold ${ink}`} style={HEAD}>Podcast Ngopi Sore</h2>
+      <div className="absolute top-[152px] left-[64px] w-[760px]">
+        {talkEpisodes[brand].map((e, i) => (
+          <div key={e.day} className={`grid h-[84px] grid-cols-[128px_1fr] items-center gap-5 border-b ${line}`}>
+            <div>
+              <div className={`text-[10.5px] font-bold tracking-[0.16em] uppercase ${muted}`}>Episode {i + 1}</div>
+              <div className={`text-[15px] font-bold ${accent}`} style={HEAD}>{e.air}</div>
+            </div>
+            <div className="text-[13px] leading-[1.35]">
+              <div className={`font-bold ${ink}`}>{e.topic}</div>
+              <div className={muted}>Tamu: {e.guest} — {e.focus}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="absolute top-[452px] left-[64px] w-[760px]">
+        <div className={`mb-2 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>
+          Rundown {talkMeta.duration} • tayang {talkMeta.air}
+        </div>
+        <div className="grid grid-cols-5 gap-2">
+          {talkRundown.map((s) => (
+            <div key={s.t} className={`rounded-md px-2.5 py-2 ${panel}`}>
+              <div className={`text-[10px] font-bold ${accent}`}>{s.t}</div>
+              <div className={`mb-1 text-[12.5px] font-bold ${ink}`} style={HEAD}>{s.name}</div>
+              <div className={`text-[10.5px] leading-[1.3] ${muted}`}>{s.note}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
+        <div>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Bank pertanyaan host</div>
+          <ul className="space-y-1 text-[11.5px] leading-[1.3]">
+            {talkQuestions[brand].map((q) => <li key={q} className={ink}>• {q}</li>)}
+          </ul>
+        </div>
+        <ul className={`space-y-1 border-t pt-3 text-[11.5px] leading-[1.3] ${line} ${muted}`}>
+          {talkRules.map((r) => <li key={r}>• {r}</li>)}
+        </ul>
+        <div className={`border-t pt-3 ${line}`}>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Bahan turunan episode</div>
+          <ul className="space-y-1 text-[11.5px] leading-[1.3]">
+            {talkClips.map((c) => <li key={c} className={ink}>• {c}</li>)}
+          </ul>
+        </div>
+      </div>
+      <Footer n={num} dark={!b} />
+    </Stage>
+  );
+}
+
 export const slides: { id: string; el: () => ReactNode }[] = [
+
   { id: "cover", el: CoverSlide },
   { id: "stats", el: StatsSlide },
   { id: "pillars", el: PillarsSlide },
