@@ -1,6 +1,8 @@
 import { describe, expect, it } from "vitest";
-import { talkEpisodes, talkQuestions, talkRules, talkRundown, talkClips } from "./talk";
+import { talkEpisodes, talkQuestions, talkRules, talkFlow, talkClips } from "./talk";
 import { PODCAST_DAYS } from "./schedule";
+
+const flat = (brand: "beauty" | "hair") => talkQuestions[brand].flatMap((g) => g.items);
 
 describe("Acuan GGS Talk", () => {
   it("mencocokkan 3 episode dengan hari podcast yang tayang", () => {
@@ -16,19 +18,27 @@ describe("Acuan GGS Talk", () => {
     }
   });
 
-  it("rundown menutup 25 menit tanpa tumpang tindih", () => {
-    expect(talkRundown[0]!.t).toBe("00:00–02:00");
-    expect(talkRundown[talkRundown.length - 1]!.t).toBe("23:00–25:00");
-    expect(talkRundown.every((s) => s.name && s.note)).toBe(true);
+  it("bank pertanyaan cukup luas: buka, ngalir, lalu nutup", () => {
+    for (const brand of ["beauty", "hair"] as const) {
+      const groups = talkQuestions[brand];
+      expect(groups.length).toBe(3);
+      expect(groups[0]!.group).toMatch(/buka/i);
+      expect(groups[groups.length - 1]!.group).toMatch(/nutup/i);
+      const items = flat(brand);
+      expect(items.length).toBeGreaterThanOrEqual(10);
+      expect(new Set(items).size).toBe(items.length);
+      // Pertanyaan pemantik, bukan statement: harus diakhiri tanda tanya.
+      expect(items.every((q) => q.trim().endsWith("?"))).toBe(true);
+    }
   });
 
-  it("aturan host menyebut Garut dan melarang klaim tanpa konfirmasi", () => {
+  it("aturan menjaga obrolan tetap natural dan aman", () => {
+    expect(talkRules.some((r) => /naskah/i.test(r))).toBe(true);
+    expect(talkRules.some((r) => /ngelantur|editing/i.test(r))).toBe(true);
     expect(talkRules.some((r) => /garut/i.test(r))).toBe(true);
     expect(talkRules.some((r) => /klaim medis/i.test(r))).toBe(true);
+    expect(talkFlow[0]!.t).toBe("0–2 mnt");
+    expect(talkFlow[talkFlow.length - 1]!.t).toBe("23–25 mnt");
     expect(talkClips.length).toBe(3);
-    for (const brand of ["beauty", "hair"] as const) {
-      expect(talkQuestions[brand].length).toBeGreaterThanOrEqual(5);
-      expect(new Set(talkQuestions[brand]).size).toBe(talkQuestions[brand].length);
-    }
   });
 });
