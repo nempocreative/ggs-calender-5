@@ -59,7 +59,7 @@ function TypeFlag({ k }: { k: string }) {
   const video = PILLARS.find((p) => p.key === k)?.video ?? false;
   return (
     <span
-      className={`content-type-flag ${video ? "bg-ggs-gold text-ggs-ink" : "bg-ggs-pink text-primary-foreground"}`}
+      className={`content-type-flag ${video ? "bg-ggs-gold-soft text-ggs-ink" : "bg-ggs-pink-soft text-ggs-pink"}`}
     >
       {video ? "VIDEO" : "DESIGN"}
     </span>
@@ -268,9 +268,9 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
               {days[start + d]}
             </td>
             {cells.map((k, s) => (
-              <td key={s} className={`border ${borderCls} ${cellCls} px-2.5 py-1.5 text-center`}>
-                <div className="flex items-center justify-between gap-2 text-[12px] font-bold"><span>{shortName(k, light ? "beauty" : "hair")}</span><TypeFlag k={k} /></div>
-                <div className="mt-0.5 text-[13px] leading-[1.25]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
+              <td key={s} className={`border ${borderCls} ${cellCls} px-3.5 py-1.5 text-left align-middle`}>
+                <div className={`schedule-cell-heading ${light ? "text-ggs-gray" : "text-primary-foreground/60"}`}><span>{shortName(k, light ? "beauty" : "hair")}</span><TypeFlag k={k} /></div>
+                <div className="mt-1 text-[13px] leading-[1.25]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
               </td>
             ))}
           </tr>
@@ -298,10 +298,6 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
       <div className={`absolute top-[112px] right-[64px] text-[17px] ${light ? "text-ggs-gray" : "text-white/50"}`}>
         {weekRanges[w]}
       </div>
-      <div className={`absolute top-[143px] right-[64px] flex items-center gap-2 text-[13px] ${light ? "text-ggs-gray" : "text-white/50"}`}>
-        <TypeFlag k="cine" />
-        <TypeFlag k="promo" />
-      </div>
       <div className="absolute top-[170px] left-[64px] w-[1152px]">
         <WeekTable sched={light ? schedBeauty : schedHair} start={w * 7} light={light} />
       </div>
@@ -324,14 +320,14 @@ function JapanScheduleSlide({ part }: { part: number }) {
       <div className="absolute top-[112px] right-[64px] text-[17px] text-ggs-gray">{part === 0 ? "16–20" : "21–24"} November 2026</div>
       <div className="absolute top-[180px] left-[64px] w-[1152px]">
         <table className="w-full table-fixed border-collapse">
-          <thead><tr>{["Hari", "Lotion • Foto / Carousel", "Owner • Personal Branding", "Lotion • Foto / Carousel"].map((label, i) => <th key={`${i}-${label}`} className={`border border-border bg-ggs-gold-soft px-4 py-4 text-[15px] text-ggs-ink ${i === 0 ? "w-[155px]" : ""}`}>{label}</th>)}</tr></thead>
+          <thead><tr>{["Hari", "Lotion • Foto / Carousel", "Owner • Personal Branding", "Lotion • Foto / Carousel"].map((label, i) => <th key={`${i}-${label}`} className={`border border-border bg-ggs-gold-soft px-4 py-3 text-[15px] text-ggs-ink ${i === 0 ? "w-[155px]" : ""}`}>{label}</th>)}</tr></thead>
           <tbody>{schedJapan.slice(start, end).map((row, offset) => {
             const day = start + offset;
-            return <tr key={day} className="h-[76px]">
+            return <tr key={day} className="h-[72px]">
               <td className="border border-border px-4 text-[14px] font-bold text-ggs-ink">{days[JAPAN_DAYS[0] + day]}</td>
-              {row.map((key, slot) => <td key={slot} className="border border-border px-4 py-3 text-center">
-                <div className="flex items-center justify-between gap-2 text-[12px] font-bold text-ggs-gold"><span>{shortName(key)}</span><TypeFlag k={key} /></div>
-                <div className="mt-2 text-[15px] leading-[1.35] text-ggs-ink">{scheduledBrief("beauty", schedJapan, day, slot)?.topic}</div>
+              {row.map((key, slot) => <td key={slot} className="border border-border px-4 py-2 text-left align-middle">
+                <div className="schedule-cell-heading text-ggs-gray"><span>{shortName(key)}</span><TypeFlag k={key} /></div>
+                <div className="mt-1 text-[14px] leading-[1.35] text-ggs-ink">{scheduledBrief("beauty", schedJapan, day, slot)?.topic}</div>
               </td>)}
             </tr>;
           })}</tbody>
