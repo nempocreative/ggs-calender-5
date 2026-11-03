@@ -539,6 +539,51 @@ function FlowSlide() {
   );
 }
 
+// ---- Caption & hashtag guide ----
+function CaptionSlide({ brand, num }: { brand: Brand; num: number }) {
+  const b = brand === "beauty";
+  const accent = b ? "text-ggs-pink" : "text-ggs-gold";
+  const ink = b ? "text-ggs-ink" : "text-primary-foreground";
+  const muted = b ? "text-ggs-gray" : "text-primary-foreground/65";
+  const line = b ? "border-border" : "border-primary-foreground/15";
+  const chip = b ? "bg-ggs-pink-soft text-ggs-pink" : "bg-ggs-gold-soft text-ggs-ink";
+  const tags = hashtags[brand];
+  return (
+    <Stage dark={!b}>
+      <div className="absolute top-[42px] left-[64px]">
+        <Kicker color={b ? "pink" : "gold"}>{b ? "GGS BEAUTY" : "GGS HAIR STUDIO"} • ACUAN CAPTION & HASHTAG</Kicker>
+      </div>
+      <h2 className={`slide-title absolute top-[80px] left-[64px] font-bold ${ink}`} style={HEAD}>Caption Siap Pakai</h2>
+      <div className="absolute top-[160px] left-[64px] w-[760px]">
+        {captions[brand].map((c) => (
+          <div key={c.pillar} className={`grid h-[88px] grid-cols-[170px_1fr] items-center gap-5 border-b ${line}`}>
+            <div className={`text-[15px] font-bold ${accent}`} style={HEAD}>{c.pillar}</div>
+            <div className="text-[13px] leading-[1.35]">
+              <div className={`font-bold ${ink}`}>{c.hook}</div>
+              <div className={muted}>{c.body}</div>
+              <div className={accent}>{c.cta}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="absolute top-[160px] left-[864px] w-[352px] space-y-5">
+        {([["Hashtag inti", tags.core], ["Rotasi (pilih 3–4)", tags.rotate], ["Minggu Jepang", hashtags.japan.core]] as const).map(([t, list]) => (
+          <div key={t}>
+            <div className={`mb-2 text-[12px] font-bold tracking-[0.15em] uppercase ${muted}`}>{t}</div>
+            <div className="flex flex-wrap gap-1.5">
+              {list.map((h) => <span key={h} className={`rounded px-2 py-1 text-[12px] font-bold ${chip}`}>{h}</span>)}
+            </div>
+          </div>
+        ))}
+        <ul className={`space-y-1.5 border-t pt-4 text-[12px] leading-[1.35] ${line} ${muted}`}>
+          {captionRules.map((r) => <li key={r}>• {r}</li>)}
+        </ul>
+      </div>
+      <Footer n={num} dark={!b} />
+    </Stage>
+  );
+}
+
 export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "cover", el: CoverSlide },
   { id: "stats", el: StatsSlide },
@@ -554,5 +599,7 @@ export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "japan-1", el: () => <JapanScheduleSlide part={0} /> },
   { id: "japan-2", el: () => <JapanScheduleSlide part={1} /> },
   { id: "distribution", el: DistributionSlide },
+  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={21} /> },
+  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={22} /> },
   { id: "closing", el: ClosingSlide },
 ];
