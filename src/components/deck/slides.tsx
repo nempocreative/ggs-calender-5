@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { briefs, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
+import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } from "@/lib/content-plan";
 import { PILLARS, TARGET, SLOTS, days, schedBeauty, schedHair, weekRanges, shortName } from "@/lib/schedule";
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
@@ -386,7 +386,7 @@ function ClosingSlide() {
 // ---- 7-8. Content ideas per service ----
 function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
   const isBeauty = brand === "beauty";
-  const selections = { talk: 0, elis: 0, cine: isBeauty ? 0 : 2, ngobras: 0, promo: isBeauty ? 1 : 1 };
+  const selections = { talk: 3, elis: 3, cine: isBeauty ? 3 : 3, ngobras: 3, promo: isBeauty ? 3 : 3 };
   return (
     <Stage dark={!isBeauty}>
       <div className="absolute top-[42px] left-[64px]">
@@ -402,14 +402,17 @@ function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
           const brief = briefs[brand][pillar.key][selections[pillar.key]];
           if (!brief) return null;
           return (
-            <div key={pillar.key} className={`grid min-h-[91px] grid-cols-[210px_1fr] gap-6 border-b py-3 ${isBeauty ? "border-border" : "border-primary-foreground/15"}`}>
+            <div key={pillar.key} className={`grid h-[93px] grid-cols-[210px_1fr] gap-6 border-b py-2 ${isBeauty ? "border-border" : "border-primary-foreground/15"}`}>
               <div>
                 <div className={`text-[18px] font-bold ${isBeauty ? "text-ggs-pink" : "text-ggs-gold"}`} style={HEAD}>{pillar.name}</div>
                 <div className={`mt-1 text-[13px] ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/65"}`}>{brief.format}</div>
               </div>
               <div>
                 <div className={`text-[19px] font-bold ${isBeauty ? "text-ggs-ink" : "text-primary-foreground"}`}>{brief.topic}</div>
-                <div className={`mt-1 text-[15px] leading-[1.35] ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/75"}`}>{brief.flow}</div>
+                <div className={`mt-0.5 text-[12px] ${isBeauty ? "text-ggs-pink" : "text-ggs-gold"}`}>
+                  Layanan: {catalogService(brand, brief)?.category} · {brief.service}
+                </div>
+                <div className={`mt-1 text-[14px] leading-[1.3] ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/75"}`}>{brief.flow}</div>
               </div>
             </div>
           );

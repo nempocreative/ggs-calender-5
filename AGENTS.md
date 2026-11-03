@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+Service content briefs must resolve to the bundled service catalog and feed both idea slides and weekly rotations, so displayed topics cannot diverge from menu data.
