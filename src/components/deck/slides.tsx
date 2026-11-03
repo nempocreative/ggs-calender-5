@@ -289,7 +289,7 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
       </div>
       <div className={`absolute bottom-[26px] left-[64px] text-[12px] ${light ? "text-ggs-gray" : "text-white/40"}`}>
         {w === 2
-          ? "Podcast libur 18–24 November (pemilik di luar negeri) • jadwal video dan promo tetap jalan"
+          ? "Minggu Jepang 16–24 November • Podcast libur, diganti Japan Diaries (personal branding owner) + Promo Lotion badan"
           : "Podcast Ngopi Sore tiap Jumat jam 16:00 • topik diputar per layanan • harga/promo wajib dikonfirmasi"}
       </div>
     </Stage>
