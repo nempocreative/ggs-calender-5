@@ -139,3 +139,11 @@ describe("Unique content across the month", () => {
     });
   }
 });
+
+import { schedHair as _sh } from "./schedule";
+import { scheduledBrief as _sb } from "./content-plan";
+test("Hair Studio tidak didominasi jenggot/kumis", () => {
+  let n = 0;
+  _sh.forEach((d, i) => d.forEach((_, s) => { if (/Jenggot|Kumis/.test(_sb("hair", _sh, i, s)?.service ?? "")) n++; }));
+  expect(n).toBeLessThanOrEqual(6);
+});
