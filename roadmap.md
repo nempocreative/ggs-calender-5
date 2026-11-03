@@ -9,7 +9,7 @@
 - [x] Ambil daftar layanan dari GitHub dan sesuaikan ide serta jadwal konten (terverifikasi lewat preview).
 - [x] Tambah acuan hook (hal. 21–22) dan acuan caption & hashtag lokal Garut (hal. 25–26); layout dicek tanpa overflow.
 - [x] Tambah acuan GGS Talk per akun (hal. 23–24) dengan episode, rundown, bank pertanyaan, dan bahan turunan; layout dicek tanpa overflow.
-- [ ] Buat acuan GGS Talk versi natural: owner cewek & cowok ngobrol santai ngalir, acuan utamanya bank pertanyaan keren (hal. 23–24).
+- [x] Buat acuan GGS Talk versi natural: owner cewek & cowok ngobrol santai ngalir, acuan utamanya bank pertanyaan keren (hal. 23–24).
 
 
 - [ ] Buat ulang PPTX & PDF dari deck terbaru (27 slide) — menunggu konfirmasi pengguna.
