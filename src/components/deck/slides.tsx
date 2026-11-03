@@ -587,7 +587,7 @@ function FlowSlide() {
       </div>
       <div className="absolute bottom-[120px] left-[76px] flex w-[1128px] items-center border-l-[10px] border-ggs-gold bg-ggs-gold-soft px-8 py-6">
         <p className="text-[16px] leading-relaxed text-ggs-ink">
-          Konsisten lebih penting daripada sempurna: konten tayang setiap hari sesuai jadwal, bukan saat mood datang.
+          Konsisten lebih penting daripada sempurna: Konten tayang setiap hari sesuai jadwal, bukan saat mood datang.
         </p>
       </div>
       <Footer n={7} />
