@@ -389,7 +389,7 @@ function ClosingSlide() {
 // ---- 7-8. Content ideas per service ----
 function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
   const isBeauty = brand === "beauty";
-  const selections = { talk: 3, elis: 3, cine: isBeauty ? 3 : 3, ngobras: 3, promo: isBeauty ? 3 : 3 };
+  const selections: Record<string, number> = { talk: 3, elis: 3, cine: 3, ngobras: 3, promo: 3, jpn: 0, lotion: 0 };
   return (
     <Stage dark={!isBeauty}>
       <div className="absolute top-[42px] left-[64px]">
@@ -401,7 +401,7 @@ function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
         Layanan Nyata, Cerita yang Spesifik
       </h2>
       <div className="absolute top-[158px] left-[64px] w-[1152px]">
-        {PILLARS.map((pillar) => {
+        {PILLARS.filter((p) => p.key !== "jpn" && p.key !== "lotion").map((pillar) => {
           const brief = briefs[brand][pillar.key][selections[pillar.key]];
           if (!brief) return null;
           return (
