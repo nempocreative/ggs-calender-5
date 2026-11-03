@@ -19,8 +19,7 @@ export const PILLARS: Pillar[] = [
   { key: "promo", name: "Promo", full: "Promo", desc: "Promo produk, harga spesial, dan informasi layanan.", video: false },
 ];
 
-export const TARGET = { talk: 18, elis: 12, cine: 18, ngobras: 18, promo: 18 } as const; // 84 per account
-type PillarKey = keyof typeof TARGET;
+export const TARGET: Record<PillarKey, number> = { talk: 18, elis: 12, cine: 18, ngobras: 18, promo: 18 }; // 84 per account
 
 export const SLOTS = ["11:00", "16:00", "19:30"];
 
