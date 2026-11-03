@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { briefs, catalogService, scheduledBrief, type Brand } from "./content-plan";
 import {
   PILLARS,
+  PODCAST_BLACKOUT,
   PODCAST_DAYS,
   TARGET,
   schedBeauty,
@@ -33,16 +34,20 @@ describe("Comedy pillar naming per account", () => {
 
 describe("Podcast Ngopi Sore cadence", () => {
   for (const brand of ["beauty", "hair"] as Brand[]) {
-    it(`${brand}: one episode per week, always at 16:00`, () => {
+    it(`${brand}: three episodes, none during the 16–24 November blackout`, () => {
       const schedule = brand === "beauty" ? schedBeauty : schedHair;
-      expect(schedule.flat().filter((k) => k === "talk").length).toBe(4);
+      expect(schedule.flat().filter((k) => k === "talk").length).toBe(3);
       for (const day of PODCAST_DAYS) {
         expect(schedule[day]![1]).toBe("talk");
       }
-      for (let week = 0; week < 4; week++) {
+      for (let day = PODCAST_BLACKOUT[0]; day <= PODCAST_BLACKOUT[1]; day++) {
+        expect(schedule[day]!.includes("talk"), `day ${day}`).toBe(false);
+      }
+      for (const week of [0, 1, 3]) {
         const inWeek = schedule.slice(week * 7, week * 7 + 7).flat().filter((k) => k === "talk").length;
         expect(inWeek).toBe(1);
       }
+      expect(schedule.slice(14, 21).flat().filter((k) => k === "talk").length).toBe(0);
     });
   }
 });

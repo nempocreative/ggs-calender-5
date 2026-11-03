@@ -41,18 +41,19 @@ export const PILLARS: Pillar[] = [
   { key: "promo", name: "Promo", full: "Promo", desc: "Promo produk, harga spesial, dan informasi layanan.", video: false },
 ];
 
-// 4 podcast episodes (one per week) + 12 comedy + 20 cinematic + 20 ngobras + 28 promo = 84.
-export const TARGET: Record<PillarKey, number> = { talk: 4, elis: 12, cine: 20, ngobras: 20, promo: 28 };
+// 3 podcast episodes (week 3 is skipped) + 12 comedy + 21 cinematic + 20 ngobras + 28 promo = 84.
+export const TARGET: Record<PillarKey, number> = { talk: 3, elis: 12, cine: 21, ngobras: 20, promo: 28 };
 
 export const SLOTS = ["11:00", "16:00", "19:30"];
 
-// Podcast Ngopi Sore: every Friday 16:00 inside 4 Nov – 1 Des 2026.
-export const PODCAST_DAYS = [2, 9, 16, 23];
+// Podcast Ngopi Sore: Friday 16:00. Week 3 (18–24 Nov) is skipped — the owner is abroad.
+export const PODCAST_DAYS = [2, 9, 23];
+export const PODCAST_BLACKOUT: [number, number] = [12, 20]; // 16–24 November 2026
 
 function buildSchedule(promoFirst: boolean, comedyOffset: number): string[][] {
   const counts: Record<PillarKey, number> = { ...TARGET };
   const result: string[][] = [];
-  const podcast = new Set(PODCAST_DAYS);
+  const podcast = new Set(PODCAST_DAYS.filter((d) => d < PODCAST_BLACKOUT[0] || d > PODCAST_BLACKOUT[1]));
 
   const normalDays: number[] = [];
   for (let d = 0; d < 28; d++) if (!podcast.has(d)) normalDays.push(d);
