@@ -123,7 +123,7 @@ type Svc = { brand: string; category: string; name: string };
 const label = (s: Svc) => {
   const base = s.name.split(" — ")[0];
   if (/^(Pendek|Sedang|Panjang)$/.test(base)) {
-    const cat = s.category.split(" · ")[0].toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
+    const cat = (s.category.split(" · ")[0] ?? "").toLowerCase().replace(/\b\w/g, (c) => c.toUpperCase());
     return `${cat} ${base}`;
   }
   return base;
@@ -162,10 +162,10 @@ for (const brand of ["beauty", "hair"] as Brand[]) {
     const seen = new Set(list.map((b) => b.topic));
     const offset = { elis: 0, cine: 7, ngobras: 13, promo: 19 }[key];
     for (let i = 0; list.length < 32 && i < pool.length * HOOKS[key].length; i++) {
-      const s = pool[(i * 5 + offset) % pool.length];
-      const h = HOOKS[key][Math.floor(i / pool.length) % HOOKS[key].length];
+      const s = pool[(i * 5 + offset) % pool.length]!;
+      const h = HOOKS[key][Math.floor(i / pool.length) % HOOKS[key].length]!;
       const l = label(s);
-      const b = { service: s.name, category: /^(Pendek|Sedang|Panjang)$/.test(s.name) || brand === "hair" ? s.category : undefined, topic: h.topic(l), format: h.format, flow: h.flow(l) };
+      const b: ContentBrief = { service: s.name, ...(/^(Pendek|Sedang|Panjang)$/.test(s.name) || brand === "hair" ? { category: s.category } : {}), topic: h.topic(l), format: h.format, flow: h.flow(l) };
       if (brand === "hair" && key === "elis" && /Elis/.test(b.topic)) continue;
       if (seen.has(b.topic)) continue;
       seen.add(b.topic);
@@ -191,7 +191,7 @@ function assign(brand: Brand, schedule: string[][]) {
       let idx = opts.findIndex((b, i) => !u.has(i) && !today.has(b.service));
       if (idx < 0) idx = opts.findIndex((_, i) => !u.has(i));
       u.add(idx);
-      if (k !== "jpn" && k !== "lotion") today.add(opts[idx].service);
+      if (k !== "jpn" && k !== "lotion") today.add(opts[idx]!.service);
       return opts[idx];
     });
   });
