@@ -319,7 +319,7 @@ function SectionHair() {
 
 // ---- 15. Distribution ----
 function DistributionSlide() {
-  const max = 20;
+  const max = Math.max(...Object.values(TARGET)) * 1.15;
   return (
     <Stage>
       <div className="absolute top-[64px] left-[76px]">
