@@ -3,7 +3,7 @@ import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } fr
 import { PILLARS, TARGET, JAPAN_DAYS, JAPAN_TARGET, SLOTS, days, schedBeauty, schedHair, schedJapan, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
 import { captions, captionRules, hashtags } from "@/lib/captions";
 import { hookBank, hookFormulas, hookRules, japanHooks } from "@/lib/hooks";
-import { talkClips, talkEpisodes, talkFlow, talkMeta, talkQuestions, talkRules } from "@/lib/talk";
+import { episodeFlow, talkClips, talkEpisodes, talkFlow, talkMeta, talkQuestions, talkRules } from "@/lib/talk";
 
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
@@ -726,6 +726,49 @@ function TalkSlide({ brand, num }: { brand: Brand; num: number }) {
   );
 }
 
+function TalkEpisodeSlide({ brand, num }: { brand: Brand; num: number }) {
+  const b = brand === "beauty";
+  const accent = b ? "text-ggs-pink" : "text-ggs-gold";
+  const ink = b ? "text-ggs-ink" : "text-primary-foreground";
+  const muted = b ? "text-ggs-gray" : "text-primary-foreground/65";
+  const line = b ? "border-border" : "border-primary-foreground/15";
+  const panel = b ? "bg-ggs-pink-soft" : "bg-ggs-gold-soft";
+  return (
+    <Stage dark={!b}>
+      <div className="absolute top-[42px] left-[64px]">
+        <Kicker color={b ? "pink" : "gold"}>{b ? "GGS BEAUTY" : "GGS HAIR STUDIO"} • ALUR PER EPISODE</Kicker>
+      </div>
+      <h2 className={`slide-title absolute top-[80px] left-[64px] font-bold ${ink}`} style={HEAD}>Dari buka sampai nutup</h2>
+      <div className={`absolute top-[134px] left-[64px] w-[900px] text-[13.5px] ${muted}`}>
+        Satu pertanyaan pemantik per tahap — sisanya biarkan ngalir.
+      </div>
+      <div className="absolute top-[172px] left-[64px] grid w-[1152px] grid-cols-3 gap-5">
+        {talkEpisodes[brand].map((e) => (
+          <div key={e.day}>
+            <div className={`rounded-md px-3 py-2 ${panel}`}>
+              <div className="text-[11px] font-bold tracking-[0.12em] uppercase text-ggs-ink/70">{e.air} • 16:00 • Tamu: {e.guest}</div>
+              <div className="mt-0.5 text-[15px] font-bold leading-[1.25] text-ggs-ink" style={HEAD}>{e.topic}</div>
+            </div>
+            <ol className="mt-2">
+              {episodeFlow(e).map((s) => (
+                <li key={s.t} className={`border-b py-1.5 last:border-b-0 ${line}`}>
+                  <div className="flex items-baseline justify-between text-[10.5px] font-bold tracking-[0.1em] uppercase">
+                    <span className={accent}>{s.name}</span>
+                    <span className={muted}>{s.t}</span>
+                  </div>
+                  <div className={`text-[12.5px] leading-[1.3] ${ink}`}>{s.q}</div>
+                  <div className={`text-[10.5px] leading-[1.3] ${muted}`}>{s.note}</div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
+      <Footer n={num} dark={!b} />
+    </Stage>
+  );
+}
+
 export const slides: { id: string; el: () => ReactNode }[] = [
 
   { id: "cover", el: CoverSlide },
@@ -746,8 +789,10 @@ export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "hook-hair", el: () => <HookSlide brand="hair" num={22} /> },
   { id: "talk-beauty", el: () => <TalkSlide brand="beauty" num={23} /> },
   { id: "talk-hair", el: () => <TalkSlide brand="hair" num={24} /> },
-  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={25} /> },
-  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={26} /> },
+  { id: "talk-ep-beauty", el: () => <TalkEpisodeSlide brand="beauty" num={25} /> },
+  { id: "talk-ep-hair", el: () => <TalkEpisodeSlide brand="hair" num={26} /> },
+  { id: "caption-beauty", el: () => <CaptionSlide brand="beauty" num={27} /> },
+  { id: "caption-hair", el: () => <CaptionSlide brand="hair" num={28} /> },
 
   { id: "closing", el: ClosingSlide },
 ];
