@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { briefs, catalogService, scheduledBrief, type Brand } from "./content-plan";
-import { PILLARS, schedBeauty, schedHair, pillarName, dualName } from "./schedule";
+import { PILLARS, PODCAST_DAYS, schedBeauty, schedHair, pillarName, dualName } from "./schedule";
 
 describe("Comedy pillar naming per account", () => {
   it("GGS Hair Studio runs the comedy pillar as Comedy, never Si Elis", () => {
