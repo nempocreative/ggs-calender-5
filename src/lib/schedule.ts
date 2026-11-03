@@ -3,6 +3,8 @@
 
 export type PillarKey = "talk" | "elis" | "cine" | "ngobras" | "promo";
 
+export type Brand = "beauty" | "hair";
+
 export interface Pillar {
   key: PillarKey;
   name: string;
@@ -11,9 +13,28 @@ export interface Pillar {
   video: boolean;
 }
 
+// Pillar labels per account: the comedy sketch character (Si Elis) only exists in GGS Beauty,
+// so GGS Hair Studio runs the same pillar under the neutral name "Comedy".
+const PILLAR_LABEL: Record<PillarKey, Record<Brand, string>> = {
+  talk: { beauty: "GGS Talk", hair: "GGS Talk" },
+  elis: { beauty: "Si Elis", hair: "Comedy" },
+  cine: { beauty: "Cinematic", hair: "Cinematic" },
+  ngobras: { beauty: "Ngobras", hair: "Ngobras" },
+  promo: { beauty: "Promo", hair: "Promo" },
+};
+
+export const pillarName = (key: PillarKey, brand: Brand) => PILLAR_LABEL[key][brand];
+
+// Label for slides that show both accounts at once.
+export const dualName = (key: PillarKey) => {
+  const b = PILLAR_LABEL[key].beauty;
+  const h = PILLAR_LABEL[key].hair;
+  return b === h ? b : `${b} / ${h}`;
+};
+
 export const PILLARS: Pillar[] = [
   { key: "talk", name: "GGS Talk", full: "GGS Talk — Ngopi Sore", desc: "Talkshow santai sore, tema seputar beauty dan self care.", video: false },
-  { key: "elis", name: "Si Elis", full: "Komedi — Si Elis", desc: "Sketsa komedi singkat, sisi lucu keseharian di salon.", video: true },
+  { key: "elis", name: "Si Elis", full: "Komedi — Si Elis (Beauty) • Comedy (Hair)", desc: "Sketsa komedi singkat, sisi lucu keseharian di salon.", video: true },
   { key: "cine", name: "Cinematic", full: "Video Cinematic Treatment", desc: "Video sinematik proses treatment, kualitas tinggi.", video: true },
   { key: "ngobras", name: "Ngobras", full: "Ngobras bareng Konsumen", desc: "Ngobrol santai bareng konsumen sambil treatment.", video: true },
   { key: "promo", name: "Promo", full: "Promo", desc: "Promo produk, harga spesial, dan informasi layanan.", video: false },
