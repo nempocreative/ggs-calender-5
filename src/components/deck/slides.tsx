@@ -381,6 +381,220 @@ function ClosingSlide() {
   );
 }
 
+// ---- 7-8. Content ideas per service ----
+type IdeasRow = { pillar: string; color: "pink" | "gold"; ideas: string[] };
+
+const BEAUTY_IDEAS: IdeasRow[] = [
+  {
+    pillar: "GGS Talk — Ngopi Sore",
+    color: "pink",
+    ideas: [
+      "Rahasia kuku awet 2 minggu — bahas perawatan nail art",
+      "Creambath L'Oréal vs CBD: kapan harus ganti produk?",
+      "Totok wajah 45 menit: self-care akhir pekan yang murah",
+    ],
+  },
+  {
+    pillar: "Si Elis",
+    color: "gold",
+    ideas: [
+      "Elis salah pilih warna pas colouring — harus bleach padahal takut",
+      "Elis pura-pura tahan nyeri pas full body massage 90 menit",
+      "Elis kalah sabar nunggu kuku full cat eye + chrome",
+    ],
+  },
+  {
+    pillar: "Cinematic Treatment",
+    color: "pink",
+    ideas: [
+      "Before–after keratin smoothing, slow motion",
+      "Proses nail art full cat eye diperagakan dari dekat",
+      "Sesi lulur + masker badan, suasana ruang spa",
+    ],
+  },
+  {
+    pillar: "Ngobras bareng Konsumen",
+    color: "gold",
+    ideas: [
+      "Pelanggan review paket Body Massage + Reflexy sambil direlaksasi",
+      "Ngobrol santai bareng pelanggan yang lagi menipedi",
+      "Cerita pelanggan: perjuangan colouring + bleaching 6 jam",
+    ],
+  },
+  {
+    pillar: "Promo",
+    color: "pink",
+    ideas: [
+      "Paket bundling mulai 140 rb — tampilkan menu lengkapnya",
+      "Menipedi 120 rb — promo hari tertentu",
+      "Jualan produk: Body Lotion Malam & Clay Matte",
+    ],
+  },
+];
+
+const HAIR_IDEAS: IdeasRow[] = [
+  {
+    pillar: "GGS Talk — Ngopi Sore",
+    color: "gold",
+    ideas: [
+      "Bedanya hair mask dan creambath — jawab satu babak",
+      "Kapan rambut butuh keratin? Sign-nya kering & bercabang",
+      "Pijat kepala 15 menit, penyelamat paling ampuh di sore hari",
+    ],
+  },
+  {
+    pillar: "Si Elis",
+    color: "pink",
+    ideas: [
+      "Elis minta potongan ala artis, hasilnya gagal total",
+      "Elis bengong menahan kejut saat bleaching rambut",
+      "Elis vs jenggot yang keras kepala",
+    ],
+  },
+  {
+    pillar: "Cinematic Treatment",
+    color: "gold",
+    ideas: [
+      "Slow-motion proses potong rambut di kursi barbershop",
+      "Timelapse highlight bleaching, dari cokelat ke blonde",
+      "Ritual paket GPS: potong + creambath + tonik",
+    ],
+  },
+  {
+    pillar: "Ngobras bareng Konsumen",
+    color: "pink",
+    ideas: [
+      "Pelanggan cerita sebelum–sesudah potong rambut",
+      "Ngobrol bareng pelanggan keratin smoothing",
+      "Reaksi pertama pelanggan lihat hasil pewarnaan",
+    ],
+  },
+  {
+    pillar: "Promo",
+    color: "gold",
+    ideas: [
+      "Paket G 45 rb — potong + pijat bahu, tampilkan harga besar",
+      "Paket GPS 100 rb — lengkap dari potong sampai facial",
+      "Keratin smoothing mulai 300 rb, rambut lurus alami",
+    ],
+  },
+];
+
+function ContentIdeasSlide({
+  brand,
+  num,
+}: {
+  brand: "beauty" | "hair";
+  num: number;
+}) {
+  const isBeauty = brand === "beauty";
+  const rows = isBeauty ? BEAUTY_IDEAS : HAIR_IDEAS;
+  return (
+    <Stage>
+      <div className="absolute top-[46px] left-[64px]">
+        <Kicker color={isBeauty ? "pink" : "gold"}>
+          {isBeauty ? "04" : "05"} — IDE KONTEN SPESIFIK • {isBeauty ? "GGS BEAUTY" : "GGS HAIR STUDIO"}
+        </Kicker>
+      </div>
+      <h2
+        className={`absolute top-[80px] left-[64px] text-[40px] font-bold ${isBeauty ? "text-ggs-ink" : "text-ggs-ink"}`}
+        style={HEAD}
+      >
+        Konten Ditarik Langsung dari Layanan
+      </h2>
+      <div className="absolute top-[152px] left-[64px] flex w-[1152px] flex-col gap-[14px]">
+        {rows.map((r) => (
+          <div key={r.pillar} className="flex items-start gap-5">
+            <div
+              className={`w-[230px] shrink-0 text-[16px] font-bold ${r.color === "pink" ? "text-ggs-pink" : "text-ggs-gold"}`}
+              style={HEAD}
+            >
+              {r.pillar}
+            </div>
+            <div className="flex flex-1 flex-col gap-1.5">
+              {r.ideas.map((idea, i) => (
+                <div key={idea} className="flex items-center gap-2.5">
+                  <span
+                    className={`h-[8px] w-[8px] shrink-0 rounded-full ${r.color === "pink" ? "bg-ggs-pink" : "bg-ggs-gold"}`}
+                  />
+                  <span className="text-[15px] text-ggs-ink">{idea}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+      <Footer n={num} />
+    </Stage>
+  );
+}
+
+// ---- 9. Production flow ----
+function FlowSlide() {
+  const steps = [
+    {
+      n: "01",
+      t: "Brief tiap Senin",
+      d: "Pilih layanan unggulan minggu ini dari jadwal, siapkan naskah Si Elis.",
+    },
+    {
+      n: "02",
+      t: "Syuting batch",
+      d: "2 sesi syuting per minggu per akun — semua video minggu itu direkam sekaligus.",
+    },
+    {
+      n: "03",
+      t: "Editing H-1",
+      d: "Video dirapikan dan caption + hashtag siap sehari sebelum tayang.",
+    },
+    {
+      n: "04",
+      t: "Tayang sesuai slot",
+      d: "11:00, 16:00 (GGS Talk), 19:30 — caption selalu membawa CTA booking.",
+    },
+    {
+      n: "05",
+      t: "Evaluasi mingguan",
+      d: "Catat video terbaik, gandakan pola konten serupa untuk minggu depan.",
+    },
+  ];
+  return (
+    <Stage>
+      <div className="absolute top-[64px] left-[76px]">
+        <Kicker color="pink">06 — ALUR PRODUKSI</Kicker>
+      </div>
+      <h2 className="absolute top-[104px] left-[76px] text-[52px] font-bold text-ggs-ink" style={HEAD}>
+        Dari Brief Sampai Tayang
+      </h2>
+      <div className="absolute top-[240px] left-[76px] flex items-start">
+        {steps.map((s, i) => (
+          <div key={s.n} className="relative flex w-[240px] flex-col gap-4">
+            <div
+              className={`flex h-[64px] w-[64px] items-center justify-center rounded-full text-[20px] font-bold text-white ${i % 2 === 0 ? "bg-ggs-pink" : "bg-ggs-gold"}`}
+              style={HEAD}
+            >
+              {s.n}
+            </div>
+            <div className="text-[20px] font-bold text-ggs-ink" style={HEAD}>
+              {s.t}
+            </div>
+            <div className="pr-4 text-[14px] leading-relaxed text-ggs-gray">{s.d}</div>
+            {i < steps.length - 1 && (
+              <div className="absolute top-[28px] left-[72px] h-[2px] w-[174px] bg-neutral-200" />
+            )}
+          </div>
+        ))}
+      </div>
+      <div className="absolute bottom-[120px] left-[76px] flex w-[1128px] items-center border-l-[10px] border-ggs-gold bg-ggs-gold-soft px-8 py-6">
+        <p className="text-[16px] leading-relaxed text-ggs-ink">
+          Konsisten lebih penting daripada sempurna: konten tayang setiap hari sesuai jadwal, bukan saat mood datang.
+        </p>
+      </div>
+      <Footer n={9} />
+    </Stage>
+  );
+}
+
 export const slides: { id: string; el: () => ReactNode }[] = [
   { id: "cover", el: CoverSlide },
   { id: "stats", el: StatsSlide },
