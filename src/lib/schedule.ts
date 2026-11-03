@@ -33,7 +33,7 @@ export const dualName = (key: PillarKey) => {
 };
 
 export const PILLARS: Pillar[] = [
-  { key: "talk", name: "GGS Talk", full: "GGS Talk — Ngopi Sore", desc: "Talkshow santai sore, tema seputar beauty dan self care.", video: false },
+  { key: "talk", name: "GGS Talk", full: "GGS Talk — Podcast Ngopi Sore", desc: "Podcast sore: host ngobrol santai bareng tamu, tema seputar salon dan self care.", video: false },
   { key: "elis", name: "Si Elis", full: "Komedi — Si Elis (Beauty) • Comedy (Hair)", desc: "Sketsa komedi singkat, sisi lucu keseharian di salon.", video: true },
   { key: "cine", name: "Cinematic", full: "Video Cinematic Treatment", desc: "Video sinematik proses treatment, kualitas tinggi.", video: true },
   { key: "ngobras", name: "Ngobras", full: "Ngobras bareng Konsumen", desc: "Ngobrol santai bareng konsumen sambil treatment.", video: true },
