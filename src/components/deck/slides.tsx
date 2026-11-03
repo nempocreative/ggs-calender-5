@@ -3,7 +3,7 @@ import { briefs, catalogService, scheduledBrief, SERVICE_SOURCE, type Brand } fr
 import { PILLARS, TARGET, JAPAN_DAYS, JAPAN_TARGET, SLOTS, days, schedBeauty, schedHair, schedJapan, weekRanges, shortName, pillarName, dualName, type PillarKey } from "@/lib/schedule";
 import { captions, captionRules, hashtags } from "@/lib/captions";
 import { hookBank, hookFormulas, hookRules, japanHooks } from "@/lib/hooks";
-import { talkClips, talkEpisodes, talkMeta, talkQuestions, talkRules, talkRundown } from "@/lib/talk";
+import { talkClips, talkEpisodes, talkFlow, talkMeta, talkQuestions, talkRules } from "@/lib/talk";
 
 import logoBeauty from "@/assets/ggs-beauty-logo.jpg";
 import logoHair from "@/assets/ggs-hair-studio-logo.png";
@@ -665,52 +665,62 @@ function TalkSlide({ brand, num }: { brand: Brand; num: number }) {
         <Kicker color={b ? "pink" : "gold"}>{b ? "GGS BEAUTY" : "GGS HAIR STUDIO"} • ACUAN GGS TALK</Kicker>
       </div>
       <h2 className={`slide-title absolute top-[80px] left-[64px] font-bold ${ink}`} style={HEAD}>Podcast Ngopi Sore</h2>
-      <div className="absolute top-[152px] left-[64px] w-[760px]">
-        {talkEpisodes[brand].map((e, i) => (
-          <div key={e.day} className={`grid h-[84px] grid-cols-[128px_1fr] items-center gap-5 border-b ${line}`}>
-            <div>
-              <div className={`text-[10.5px] font-bold tracking-[0.16em] uppercase ${muted}`}>Episode {i + 1}</div>
-              <div className={`text-[15px] font-bold ${accent}`} style={HEAD}>{e.air}</div>
-            </div>
-            <div className="text-[13px] leading-[1.35]">
-              <div className={`font-bold ${ink}`}>{e.topic}</div>
-              <div className={muted}>Tamu: {e.guest} — {e.focus}</div>
-            </div>
+      <div className={`absolute top-[134px] left-[64px] w-[760px] text-[13.5px] ${muted}`}>
+        Owner ngobrol santai — pertanyaan di kiri cuma pemantik, bukan naskah yang dibaca.
+      </div>
+
+      <div className="absolute top-[172px] left-[64px] w-[760px] space-y-4">
+        {talkQuestions[brand].map((g) => (
+          <div key={g.group}>
+            <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>{g.group}</div>
+            <ul className={g.items.length > 3 ? "grid grid-cols-2 gap-x-6 gap-y-1" : "space-y-1"}>
+              {g.items.map((q) => (
+                <li key={q} className="flex gap-2 text-[13px] leading-[1.35]">
+                  <span className={`shrink-0 pt-[2px] text-[11px] font-bold ${accent}`}>—</span>
+                  <span className={ink}>{q}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         ))}
-      </div>
-      <div className="absolute top-[452px] left-[64px] w-[760px]">
-        <div className={`mb-2 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>
-          Rundown {talkMeta.duration} • tayang {talkMeta.air}
-        </div>
-        <div className="grid grid-cols-5 gap-2">
-          {talkRundown.map((s) => (
-            <div key={s.t} className={`rounded-md px-2.5 py-2 ${panel}`}>
-              <div className={`text-[10px] font-bold ${b ? "text-ggs-pink" : "text-ggs-ink/70"}`}>{s.t}</div>
-              <div className="mb-1 text-[12.5px] font-bold text-ggs-ink" style={HEAD}>{s.name}</div>
-              <div className="text-[10.5px] leading-[1.3] text-ggs-ink/70">{s.note}</div>
-            </div>
-          ))}
-        </div>
-
-      </div>
-      <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
-        <div>
-          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Bank pertanyaan host</div>
-          <ul className="space-y-1 text-[11.5px] leading-[1.3]">
-            {talkQuestions[brand].map((q) => <li key={q} className={ink}>• {q}</li>)}
+        <div className={`border-t pt-3 ${line}`}>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Biar ngobrolnya ngalir</div>
+          <ul className="grid grid-cols-2 gap-x-6 gap-y-1 text-[11px] leading-[1.3]">
+            {talkRules.map((r) => <li key={r} className={muted}>• {r}</li>)}
           </ul>
         </div>
-        <ul className={`space-y-1 border-t pt-3 text-[11.5px] leading-[1.3] ${line} ${muted}`}>
-          {talkRules.map((r) => <li key={r}>• {r}</li>)}
-        </ul>
+      </div>
+
+      <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
+        <div>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Episode yang tayang</div>
+          <div className="space-y-1.5">
+            {talkEpisodes[brand].map((e) => (
+              <div key={e.day} className={`rounded-md px-2.5 py-1.5 ${panel}`}>
+                <div className="text-[12.5px] font-bold leading-[1.3] text-ggs-ink" style={HEAD}>{e.air} — {e.topic}</div>
+                <div className="text-[11px] text-ggs-ink/70">Tamu: {e.guest}</div>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className={`border-t pt-3 ${line}`}>
-          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Bahan turunan episode</div>
-          <ul className="space-y-1 text-[11.5px] leading-[1.3]">
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Alur longgar {talkMeta.duration}</div>
+          <ul className="space-y-1 text-[11px] leading-[1.3]">
+            {talkFlow.map((s) => (
+              <li key={s.t} className={muted}>
+                <span className={`font-bold ${accent}`}>{s.t}</span> — {s.name}: {s.note}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className={`border-t pt-3 ${line}`}>
+          <div className={`mb-1.5 text-[11px] font-bold tracking-[0.14em] uppercase ${muted}`}>Bahan turunan</div>
+          <ul className="space-y-1 text-[11px] leading-[1.3]">
             {talkClips.map((c) => <li key={c} className={ink}>• {c}</li>)}
           </ul>
         </div>
       </div>
+
       <Footer n={num} dark={!b} />
     </Stage>
   );
