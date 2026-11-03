@@ -389,7 +389,7 @@ function ClosingSlide() {
 // ---- 7-8. Content ideas per service ----
 function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
   const isBeauty = brand === "beauty";
-  const selections: Record<string, number> = { talk: 3, elis: 3, cine: 3, ngobras: 3, promo: 3, jpn: 0, lotion: 0 };
+  const selections: Record<PillarKey, number> = { talk: 3, elis: 3, cine: 3, ngobras: 3, promo: 3, jpn: 0, lotion: 0 };
   return (
     <Stage dark={!isBeauty}>
       <div className="absolute top-[42px] left-[64px]">
