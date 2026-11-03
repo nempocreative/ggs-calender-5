@@ -15,11 +15,11 @@ export const SERVICE_SOURCE = "https://github.com/nempocreative/remix-of-ggs-5/b
 export const briefs: Record<Brand, Record<PillarKey, ContentBrief[]>> = {
   beauty: {
     talk: [
-      { service: "Kuku Asli Cat Eye", topic: "Cat Eye atau motif?", format: "Carousel • 4 halaman", flow: "Pertanyaan pembuka → foto dua pilihan kuku → penjelasan nail artist → ajakan konsultasi desain." },
-      { service: "L'Oréal Warna", topic: "Creambath rambut berwarna", format: "Carousel • 4 halaman", flow: "Foto rambut berwarna → produk layanan → tips perawatan dari stylist → ajakan konsultasi." },
-      { service: "Pendek", category: "KERATIN SMOOTHING", topic: "Smoothing atau treatment?", format: "Carousel • 4 halaman", flow: "Pertanyaan klien → bedakan dua menu keratin → kondisi rambut yang perlu dinilai → konsultasi dahulu." },
-      { service: "Treatment Rambut Bercabang", topic: "Rambut bercabang, mulai dari mana?", format: "Carousel • 4 halaman", flow: "Foto ujung rambut berizin → stylist menilai kondisi → jelaskan menu treatment tanpa janji hasil pasti → ajakan konsultasi." },
-      { service: "Press On Nail", topic: "Press on atau kuku asli?", format: "Carousel • 4 halaman", flow: "Foto dua jenis layanan → nail artist jelaskan perbedaan pemasangan → tips memilih sesuai aktivitas → konsultasi desain." },
+      { service: "Kuku Asli Cat Eye", topic: "Cerita di balik nail art", format: "Podcast • 25 menit", flow: "Host buka topik → nail artist cerita proses nail art → tanya jawab santai → 2 klip Reels + 1 quote card." },
+      { service: "Totok Wajah + Masker 45 Menit", topic: "Self care itu bukan kemewahan", format: "Podcast • 25 menit", flow: "Host buka topik → terapis cerita totok wajah dan masker → pertanyaan penonton → 2 klip Reels + 1 quote card." },
+      { service: "L'Oréal Warna", topic: "Rambut berwarna, rawat bagaimana?", format: "Podcast • 25 menit", flow: "Host buka topik → stylist cerita perawatan rambut berwarna → tips harian → 2 klip Reels + 1 quote card." },
+      { service: "Press On Nail", topic: "Press on: cepat tapi rapi", format: "Podcast • 25 menit", flow: "Host buka topik → nail artist jelaskan press on → siapa yang cocok → 2 klip Reels + 1 quote card." },
+      { service: "Full Body Massage 90 Menit", topic: "Capek kerja, butuh jeda", format: "Podcast • 25 menit", flow: "Host buka topik → terapis cerita pijat whole body → ngobrol santai soal relaksasi → 2 klip Reels + 1 quote card." },
     ],
     elis: [
       { service: "Kuku Asli Full Cat Eye + Chrome", topic: "Elis bingung pilih kuku", format: "Reels • 20–30 detik", flow: "Elis membawa banyak referensi → nail artist bantu pilih → lelucon saat menentukan warna → tampilkan hasil nyata." },
@@ -50,10 +50,10 @@ export const briefs: Record<Brand, Record<PillarKey, ContentBrief[]>> = {
   },
   hair: {
     talk: [
-      { service: "Perming", topic: "Perming atau smoothing?", format: "Carousel • 4 halaman", flow: "Dua referensi tekstur → jelaskan menu Perming dan Keratin Smoothing → konsultasi kondisi rambut → CTA konsultasi." },
-      { service: "Paket GPS (Ganteng Pisan Sob) — Potong + Creambath Pijat Kepala Bahu + Tonik (30 menit)", topic: "Apa saja isi Paket GPS?", format: "Carousel • 4 halaman", flow: "Foto potong → creambath dan pijat kepala bahu → tonik → rangkum isi paket; facial tidak termasuk GPS." },
-      { service: "Colouring No Bleaching", topic: "Warna dengan atau tanpa bleach", format: "Carousel • 4 halaman", flow: "Referensi warna → bedakan dua menu colouring → hasil bergantung kondisi rambut → konsultasi barber." },
-      { service: "Keratin Smoothing", topic: "Keratin untuk gaya rambut pria", format: "Carousel • 4 halaman", flow: "Foto kondisi rambut → barber jelaskan menu smoothing → konsultasi kecocokan dan perawatan → ajakan konsultasi tanpa janji hasil pasti." },
+      { service: "Perming", topic: "Perming di rambut pria", format: "Podcast • 25 menit", flow: "Host buka topik → barber jelaskan perming dan bedanya dengan smoothing → tanya jawab → 2 klip Reels + 1 quote card." },
+      { service: "Paket GPS (Ganteng Pisan Sob) — Potong + Creambath Pijat Kepala Bahu + Tonik (30 menit)", topic: "Kenapa Paket GPS banyak diambil", format: "Podcast • 25 menit", flow: "Host buka topik → barber bahas isi paket → pertanyaan penonton → 2 klip Reels + 1 quote card." },
+      { service: "Colouring No Bleaching", topic: "Warna rambut pria, mulai dari mana", format: "Podcast • 25 menit", flow: "Host buka topik → barber bahas colouring tanpa bleach → kondisi rambut → 2 klip Reels + 1 quote card." },
+      { service: "Keratin Smoothing", topic: "Keratin untuk rambut pria", format: "Podcast • 25 menit", flow: "Host buka topik → barber jelaskan keratin smoothing → perawatan setelahnya → 2 klip Reels + 1 quote card." },
     ],
     elis: [
       { service: "Dewasa", category: "HAIR CUT", topic: "Bawa banyak referensi, pulang satu model", format: "Reels • 20–30 detik", flow: "Klien datang bawa banyak referensi → barber jelaskan bentuk rambut yang cocok → deal satu model → reveal potongan rapi, bukan hasil gagal." },

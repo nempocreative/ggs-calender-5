@@ -78,7 +78,7 @@ function CoverSlide() {
       </div>
       <div className="absolute top-[430px] left-[90px] h-[3px] w-[120px] bg-ggs-gold" />
       <div className="absolute top-[470px] left-[90px] text-[18px] text-ggs-gray">
-        3 konten per hari • Maksimal 2 video • 2 akun, 1 strategi
+        3 konten per hari • Podcast tiap Jumat • 2 akun, 1 strategi
       </div>
       <div className="absolute bottom-[50px] left-[90px] text-[14px] tracking-[0.15em] text-ggs-gray">
         NOVEMBER 2026
@@ -115,8 +115,8 @@ function StatsSlide() {
       </div>
       <div className="absolute bottom-[110px] left-[76px] flex w-[1128px] items-center border-l-[10px] border-ggs-pink bg-ggs-pink-soft px-8 py-6">
         <p className="text-[16px] leading-relaxed text-ggs-ink">
-          Dua akun, dua kepribadian: GGS Beauty tampil lembut putih-pink, GGS Hair Studio tegas hitam-gold. Jadwal
-          keduanya disusun terpisah dan tidak saling menyalin.
+          Dua akun, dua kepribadian: GGS Beauty putih-pink, GGS Hair Studio hitam-gold. Podcast Ngopi Sore tayang
+          tiap Jumat jam 16.00 — satu episode penuh per minggu, lalu dipotong jadi klip.
         </p>
       </div>
       <Footer n={2} />
@@ -165,12 +165,12 @@ function PillarsSlide() {
 // ---- 4. Rhythm ----
 function RhythmSlide() {
   const times = [
-    { t: "11:00", d: "Konten pagi — video ringan atau promo", dark: false },
-    { t: "16:00", d: "GGS Talk — Ngopi Sore, selalu di jam ini", dark: true },
+    { t: "11:00", d: "Promo pagi — foto atau carousel menu salon", dark: false },
+    { t: "16:00", d: "Podcast Ngopi Sore — tiap Jumat, satu episode", dark: true },
     { t: "19:30", d: "Prime time — video utama atau Ngobras", dark: false },
   ];
   const rules = [
-    "Maksimal 2 video per hari — setiap hari pasti ada konten non-video (GGS Talk atau Promo).",
+    "Maksimal 2 video per hari — tiap hari selalu ada Promo non-video (foto atau carousel).",
     "Komedi tampil lebih jarang (12x): Si Elis di GGS Beauty, Comedy di GGS Hair Studio — supaya tetap segar.",
   ];
   return (
@@ -288,7 +288,7 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
         <WeekTable sched={light ? schedBeauty : schedHair} start={w * 7} light={light} />
       </div>
       <div className={`absolute bottom-[26px] left-[64px] text-[12px] ${light ? "text-ggs-gray" : "text-white/40"}`}>
-        Ngopi Sore jam 16:00 saat terjadwal • topik diputar per layanan • harga/promo wajib dikonfirmasi
+        Podcast Ngopi Sore tiap Jumat jam 16:00 • topik diputar per layanan • harga/promo wajib dikonfirmasi
       </div>
     </Stage>
   );
@@ -319,7 +319,7 @@ function SectionHair() {
 
 // ---- 15. Distribution ----
 function DistributionSlide() {
-  const max = 20;
+  const max = Math.max(...Object.values(TARGET)) * 1.15;
   return (
     <Stage>
       <div className="absolute top-[64px] left-[76px]">
@@ -443,12 +443,12 @@ function FlowSlide() {
     {
       n: "03",
       t: "Editing H-1",
-      d: "Pilih footage, siapkan carousel Ngopi Sore dan foto Promo. Hindari filter before–after dan klaim medis.",
+      d: "Pilih footage, potong klip podcast dan siapkan foto Promo. Hindari filter before–after dan klaim medis.",
     },
     {
       n: "04",
       t: "Tayang sesuai slot",
-      d: "11:00, 16:00 (GGS Talk), 19:30 — caption selalu membawa CTA booking.",
+      d: "11:00, 16:00 (podcast tiap Jumat), 19:30 — caption selalu membawa CTA booking.",
     },
     {
       n: "05",
