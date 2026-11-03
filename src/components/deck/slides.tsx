@@ -320,7 +320,7 @@ function JapanScheduleSlide({ part }: { part: number }) {
       <div className="absolute top-[112px] right-[64px] text-[17px] text-ggs-gray">{part === 0 ? "16–20" : "21–24"} November 2026</div>
       <div className="absolute top-[180px] left-[64px] w-[1152px]">
         <table className="w-full table-fixed border-collapse">
-          <thead><tr>{["Hari", "Lotion • Foto / Carousel", "Owner • Personal Branding", "Lotion • Foto / Carousel"].map((label, i) => <th key={`${i}-${label}`} className={`border border-border bg-ggs-gold-soft px-4 py-3 text-[15px] text-ggs-ink ${i === 0 ? "w-[155px]" : ""}`}>{label}</th>)}</tr></thead>
+          <thead><tr>{["Hari", "Lotion Tone Up • Foto / Carousel", "Owner • Personal Branding", "Lotion Tone Up • Foto / Carousel"].map((label, i) => <th key={`${i}-${label}`} className={`border border-border bg-ggs-gold-soft px-4 py-3 text-[15px] text-ggs-ink ${i === 0 ? "w-[155px]" : ""}`}>{label}</th>)}</tr></thead>
           <tbody>{schedJapan.slice(start, end).map((row, offset) => {
             const day = start + offset;
             return <tr key={day} className="h-[72px]">
@@ -333,7 +333,7 @@ function JapanScheduleSlide({ part }: { part: number }) {
           })}</tbody>
         </table>
       </div>
-      <div className="absolute bottom-[66px] left-[64px] w-[1152px] text-[14px] leading-relaxed text-ggs-gray">27 materi produksi owner: {JAPAN_TARGET.jpn} vlog + {JAPAN_TARGET.lotion} foto/carousel lotion; terpisah dari 168 konten salon.<br />Ide lokasi menyesuaikan perjalanan aktual; nama, manfaat & harga lotion dikonfirmasi. Penempatan tayang dikoordinasikan dengan tim salon.</div>
+      <div className="absolute bottom-[66px] left-[64px] w-[1152px] text-[14px] leading-relaxed text-ggs-gray">27 materi produksi owner: {JAPAN_TARGET.jpn} vlog + {JAPAN_TARGET.lotion} foto/carousel Lotion Tone Up; terpisah dari 168 konten salon.<br />Ide lokasi menyesuaikan perjalanan aktual; nama, manfaat & harga lotion dikonfirmasi. Penempatan tayang dikoordinasikan dengan tim salon.</div>
       <Footer n={18 + part} />
     </Stage>
   );
