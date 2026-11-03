@@ -1,6 +1,17 @@
 import { describe, expect, it } from "vitest";
 import { briefs, catalogService, scheduledBrief, type Brand } from "./content-plan";
-import { PILLARS, schedBeauty, schedHair } from "./schedule";
+import { PILLARS, schedBeauty, schedHair, pillarName, dualName } from "./schedule";
+
+describe("Comedy pillar naming per account", () => {
+  it("GGS Hair Studio runs the comedy pillar as Comedy, never Si Elis", () => {
+    expect(pillarName("elis", "hair")).toBe("Comedy");
+    expect(pillarName("elis", "beauty")).toBe("Si Elis");
+    expect(dualName("elis")).toBe("Si Elis / Comedy");
+    for (const brief of briefs.hair.elis) {
+      expect(`${brief.topic} ${brief.flow}`).not.toMatch(/Elis/);
+    }
+  });
+});
 
 describe("Repository-backed service content", () => {
   for (const brand of ["beauty", "hair"] as Brand[]) {
