@@ -686,12 +686,13 @@ function TalkSlide({ brand, num }: { brand: Brand; num: number }) {
         <div className="grid grid-cols-5 gap-2">
           {talkRundown.map((s) => (
             <div key={s.t} className={`rounded-md px-2.5 py-2 ${panel}`}>
-              <div className={`text-[10px] font-bold ${accent}`}>{s.t}</div>
-              <div className={`mb-1 text-[12.5px] font-bold ${ink}`} style={HEAD}>{s.name}</div>
-              <div className={`text-[10.5px] leading-[1.3] ${muted}`}>{s.note}</div>
+              <div className={`text-[10px] font-bold ${b ? "text-ggs-pink" : "text-ggs-ink/70"}`}>{s.t}</div>
+              <div className="mb-1 text-[12.5px] font-bold text-ggs-ink" style={HEAD}>{s.name}</div>
+              <div className="text-[10.5px] leading-[1.3] text-ggs-ink/70">{s.note}</div>
             </div>
           ))}
         </div>
+
       </div>
       <div className="absolute top-[140px] left-[864px] w-[352px] space-y-3">
         <div>
