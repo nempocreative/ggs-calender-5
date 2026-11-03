@@ -1,4 +1,5 @@
 # GGS presentation
+- [x] Rapikan ukuran teks, jarak, dan batas konten semua slide; periksa seluruh halaman di preview.
 - [x] Recheck latest repository services and align the visible content topics and filming flows.
 - [x] Finish restrained, professional pitch-deck redesign without changing the schedule.
 - [x] Use circular logos, never square logo frames.

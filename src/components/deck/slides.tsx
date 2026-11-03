@@ -13,7 +13,7 @@ const BODY = { fontFamily: "Calibri, sans-serif" };
 function Stage({ children, dark }: { children: ReactNode; dark?: boolean }) {
   return (
     <div
-      className={`relative h-[720px] w-[1280px] shrink-0 overflow-hidden ${dark ? "bg-ggs-dark" : "bg-white"}`}
+      className={`slide-content relative h-[720px] w-[1280px] shrink-0 overflow-hidden ${dark ? "bg-ggs-dark" : "bg-background"}`}
       style={BODY}
     >
       {children}
@@ -68,10 +68,10 @@ function CoverSlide() {
       <div className="absolute top-[150px] left-[90px] text-[17px] tracking-[0.3em] text-ggs-pink">
         RENCANA KONTEN 4 MINGGU • 4 NOV – 1 DES 2026
       </div>
-      <h1 className="absolute top-[200px] left-[90px] text-[86px] leading-none font-bold text-ggs-ink" style={HEAD}>
+      <h1 className="slide-title-lg absolute top-[212px] left-[90px] font-bold text-ggs-ink" style={HEAD}>
         Jadwal Konten
       </h1>
-      <div className="absolute top-[340px] left-[90px] text-[40px]" style={HEAD}>
+      <div className="slide-subtitle absolute top-[340px] left-[90px] w-[700px]" style={HEAD}>
         <span className="font-bold text-ggs-pink">GGS Beauty</span>
         <span className="text-ggs-gray/50"> × </span>
         <span className="font-bold text-ggs-gold">GGS Hair Studio</span>
@@ -100,13 +100,13 @@ function StatsSlide() {
       <div className="absolute top-[64px] left-[76px]">
         <Kicker color="pink">01 — RINGKASAN</Kicker>
       </div>
-      <h2 className="absolute top-[104px] left-[76px] text-[52px] font-bold text-ggs-ink" style={HEAD}>
+      <h2 className="slide-title absolute top-[104px] left-[76px] font-bold text-ggs-ink" style={HEAD}>
         Sekilas Rencana
       </h2>
-      <div className="absolute top-[230px] left-[76px] flex gap-[56px]">
+      <div className="absolute top-[230px] left-[76px] grid w-[1128px] grid-cols-4 gap-[40px]">
         {stats.map((s) => (
-          <div key={s.n + s.l} className="w-[240px]">
-            <div className={`text-[96px] leading-none font-bold ${s.c}`} style={HEAD}>
+          <div key={s.n + s.l} className="min-w-0">
+            <div className={`slide-stat font-bold ${s.c}`} style={HEAD}>
               {s.n}
             </div>
             <div className="mt-4 text-[16px] leading-snug text-ggs-gray">{s.l}</div>
@@ -126,29 +126,30 @@ function StatsSlide() {
 
 // ---- 3. Pillars ----
 function PillarsSlide() {
+  const mainPillars = PILLARS.filter((p) => p.key !== "jpn" && p.key !== "lotion");
   return (
     <Stage>
       <div className="absolute top-[64px] left-[76px]">
         <Kicker color="pink">02 — PILAR KONTEN</Kicker>
       </div>
-      <h2 className="absolute top-[104px] left-[76px] text-[52px] font-bold text-ggs-ink" style={HEAD}>
+      <h2 className="slide-title absolute top-[104px] left-[76px] font-bold text-ggs-ink" style={HEAD}>
         5 Pilar Konten
       </h2>
-      <div className="absolute top-[210px] left-[76px] flex flex-col gap-[22px]">
-        {PILLARS.map((p, i) => (
-          <div key={p.key} className="flex w-[1128px] items-center gap-6">
+      <div className="absolute top-[188px] left-[76px] w-[1128px]">
+        {mainPillars.map((p, i) => (
+          <div key={p.key} className="grid h-[78px] grid-cols-[44px_360px_1fr_100px] items-center gap-6 border-b border-border">
             <div
-              className={`flex h-[64px] w-[64px] shrink-0 items-center justify-center rounded-full text-[20px] font-bold text-white ${p.video ? "bg-ggs-gold" : "bg-ggs-pink"}`}
+              className={`flex h-[40px] w-[40px] shrink-0 items-center justify-center rounded-full text-[16px] font-bold text-primary-foreground ${p.video ? "bg-ggs-gold" : "bg-ggs-pink"}`}
               style={HEAD}
             >
               0{i + 1}
             </div>
-            <div className="w-[420px] text-[22px] font-bold text-ggs-ink" style={HEAD}>
+            <div className="slide-body font-bold text-ggs-ink" style={HEAD}>
               {p.full}
             </div>
-            <div className="flex-1 text-[15px] text-ggs-gray">{p.desc}</div>
+            <div className="text-[15px] leading-[1.45] text-ggs-gray">{p.desc}</div>
             <div
-              className={`w-[120px] rounded-full py-1.5 text-center text-[11px] font-bold tracking-widest ${
+              className={`w-[100px] whitespace-nowrap rounded-full py-2 text-center text-[11px] font-bold ${
                 p.video ? "bg-ggs-gold-soft text-ggs-gold" : "bg-ggs-pink-soft text-ggs-pink"
               }`}
             >
@@ -156,6 +157,10 @@ function PillarsSlide() {
             </div>
           </div>
         ))}
+      </div>
+      <div className="absolute top-[600px] left-[76px] flex w-[1128px] items-center gap-8 border-l-2 border-ggs-gold pl-5">
+        <div className="shrink-0 text-[14px] font-bold text-ggs-ink">KHUSUS 16–24 NOV</div>
+        <div className="text-[15px] leading-relaxed text-ggs-gray">Japan Diaries — personal branding owner<br />Promo Lotion — foto produk & carousel</div>
       </div>
       <Footer n={3} />
     </Stage>
@@ -178,23 +183,23 @@ function RhythmSlide() {
       <div className="absolute top-[64px] left-[76px]">
         <Kicker color="pink">03 — RITME TAYANG</Kicker>
       </div>
-      <h2 className="absolute top-[104px] left-[76px] text-[52px] font-bold text-ggs-ink" style={HEAD}>
+      <h2 className="slide-title absolute top-[104px] left-[76px] font-bold text-ggs-ink" style={HEAD}>
         Satu Hari, Tiga Slot Tayang
       </h2>
       <div className="absolute top-[220px] left-[76px] flex gap-[28px]">
         {times.map((it) => (
           <div
             key={it.t}
-            className={`h-[220px] w-[357px] rounded-xl p-8 shadow-lg ${it.dark ? "bg-ggs-pink" : "bg-neutral-100"}`}
+            className={`h-[220px] w-[357px] rounded-lg p-8 ${it.dark ? "bg-ggs-pink" : "bg-muted"}`}
           >
-            <div className={`text-[56px] leading-none font-bold ${it.dark ? "text-white" : "text-ggs-ink"}`} style={HEAD}>
+            <div className={`slide-title font-bold ${it.dark ? "text-primary-foreground" : "text-ggs-ink"}`} style={HEAD}>
               {it.t}
             </div>
             <div className={`mt-5 text-[15px] ${it.dark ? "text-white/85" : "text-ggs-gray"}`}>{it.d}</div>
           </div>
         ))}
       </div>
-      <div className="absolute top-[500px] left-[76px] flex flex-col gap-5">
+      <div className="absolute top-[490px] left-[76px] flex w-[1128px] flex-col gap-5">
         {rules.map((r, i) => (
           <div key={r} className="flex items-center gap-4">
             <div className={`h-[18px] w-[18px] shrink-0 ${i === 0 ? "bg-ggs-pink" : "bg-ggs-gold"}`} />
@@ -215,7 +220,7 @@ function SectionBeauty() {
       <div className="absolute top-[200px] left-[660px]">
         <Kicker color="pink">BAGIAN 01</Kicker>
       </div>
-      <h2 className="absolute top-[250px] left-[660px] text-[64px] font-bold text-ggs-ink" style={HEAD}>
+      <h2 className="slide-title absolute top-[250px] left-[660px] font-bold text-ggs-ink" style={HEAD}>
         GGS Beauty
       </h2>
       <p className="absolute top-[380px] left-[660px] text-[18px] leading-relaxed text-ggs-gray">
@@ -249,14 +254,14 @@ function WeekTable({ sched, start, light }: { sched: string[][]; start: number; 
       </thead>
       <tbody>
         {sched.slice(start, start + 7).map((cells, d) => (
-          <tr key={d}>
+          <tr key={d} className="h-[65px]">
             <td className={`border ${borderCls} ${dayCls} px-3 py-2.5 text-left text-[14px] font-bold`}>
               {days[start + d]}
             </td>
             {cells.map((k, s) => (
-              <td key={s} className={`border ${borderCls} ${cellCls} px-3 py-2.5 text-center`}>
+              <td key={s} className={`border ${borderCls} ${cellCls} px-3 py-2 text-center`}>
                 <div className="text-[12px] font-bold">{shortName(k, light ? "beauty" : "hair")} · {scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.format.split(" • ")[0]}</div>
-                <div className="mt-1 text-[15px] leading-[1.2]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
+                <div className="mt-1 text-[14px] leading-[1.3]">{scheduledBrief(light ? "beauty" : "hair", sched, start + d, s)?.topic}</div>
               </td>
             ))}
           </tr>
@@ -276,7 +281,7 @@ function WeekSlide({ w, brand }: { w: number; brand: "beauty" | "hair" }) {
         </Kicker>
       </div>
       <h2
-        className={`absolute top-[96px] left-[64px] text-[42px] font-bold ${light ? "text-ggs-ink" : "text-white"}`}
+        className={`slide-title absolute top-[96px] left-[64px] font-bold ${light ? "text-ggs-ink" : "text-primary-foreground"}`}
         style={HEAD}
       >
         Minggu {w + 1}
@@ -304,7 +309,7 @@ function SectionHair() {
       <div className="absolute top-[200px] left-[90px]">
         <Kicker color="gold">BAGIAN 02</Kicker>
       </div>
-      <h2 className="absolute top-[250px] left-[90px] text-[56px] font-bold text-white" style={HEAD}>
+      <h2 className="slide-title absolute top-[250px] left-[90px] font-bold text-primary-foreground" style={HEAD}>
         GGS Hair Studio
       </h2>
       <p className="absolute top-[375px] left-[90px] text-[18px] leading-relaxed text-white/50">
@@ -327,15 +332,15 @@ function DistributionSlide() {
       <div className="absolute top-[64px] left-[76px]">
         <Kicker color="pink">07 — DISTRIBUSI</Kicker>
       </div>
-      <h2 className="absolute top-[104px] left-[76px] text-[52px] font-bold text-ggs-ink" style={HEAD}>
+      <h2 className="slide-title absolute top-[104px] left-[76px] font-bold text-ggs-ink" style={HEAD}>
         Distribusi Konten per Akun
       </h2>
-      <div className="absolute top-[210px] left-[76px] flex h-[360px] w-[760px] items-end gap-10 border-b-2 border-neutral-200 pb-0">
+      <div className="absolute top-[210px] left-[76px] grid h-[360px] w-[760px] grid-cols-7 items-end gap-4 border-b-2 border-border pb-0">
         {PILLARS.map((p) => (
-          <div key={p.key} className="flex flex-1 flex-col items-center gap-3">
+          <div key={p.key} className="flex min-w-0 flex-col items-center gap-3">
             <div className="flex h-[300px] items-end gap-2">
               {(["beauty", "hair"] as const).map((b) => (
-                <div key={b} className="flex w-[42px] flex-col items-center">
+                <div key={b} className="flex w-[30px] flex-col items-center">
                   <span className="mb-1 text-[12px] font-bold text-ggs-ink">{TARGET[p.key]}</span>
                   <div
                     className={`w-full rounded-t ${b === "beauty" ? "bg-ggs-pink" : "bg-ggs-gold"}`}
@@ -344,7 +349,7 @@ function DistributionSlide() {
                 </div>
               ))}
             </div>
-            <span className="text-[13px] text-ggs-gray">{dualName(p.key)}</span>
+            <span className="flex h-[40px] w-full items-start justify-center text-center text-[13px] leading-[1.35] text-ggs-gray">{dualName(p.key)}</span>
           </div>
         ))}
       </div>
@@ -357,11 +362,11 @@ function DistributionSlide() {
         </span>
       </div>
       <div className="absolute top-[220px] right-[76px] w-[280px]">
-        <div className="text-[84px] leading-none font-bold text-ggs-pink" style={HEAD}>
+        <div className="slide-stat font-bold text-ggs-pink" style={HEAD}>
           84
         </div>
         <div className="mt-3 text-[15px] text-ggs-gray">konten per akun dalam 28 hari</div>
-        <div className="mt-8 rounded-xl bg-ggs-gold-soft p-5 text-[14px] leading-relaxed text-ggs-ink">
+        <div className="mt-8 border-l-2 border-ggs-gold pl-5 text-[14px] leading-relaxed text-ggs-ink">
           Komedi sengaja 12x — Si Elis di Beauty, Comedy di Hair Studio.
         </div>
       </div>
@@ -375,7 +380,7 @@ function ClosingSlide() {
   return (
     <Stage dark>
       <img src={salonClosing} alt="GGS" className="absolute top-0 right-0 h-full w-[610px] object-cover" />
-      <h2 className="absolute top-[240px] left-[90px] text-[64px] font-bold text-white" style={HEAD}>
+      <h2 className="slide-title absolute top-[240px] left-[90px] font-bold text-primary-foreground" style={HEAD}>
         Terima Kasih
       </h2>
       <div className="absolute top-[365px] left-[90px] text-[24px] text-ggs-gold italic">Grooming is Better</div>
@@ -397,7 +402,7 @@ function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
           {isBeauty ? "04 — GGS BEAUTY" : "05 — GGS HAIR STUDIO"} • LAYANAN & PENGAMBILAN
         </Kicker>
       </div>
-      <h2 className={`absolute top-[80px] left-[64px] text-[40px] font-bold ${isBeauty ? "text-ggs-ink" : "text-primary-foreground"}`} style={HEAD}>
+      <h2 className={`slide-title absolute top-[80px] left-[64px] font-bold ${isBeauty ? "text-ggs-ink" : "text-primary-foreground"}`} style={HEAD}>
         Layanan Nyata, Cerita yang Spesifik
       </h2>
       <div className="absolute top-[158px] left-[64px] w-[1152px]">
@@ -405,13 +410,13 @@ function ContentIdeasSlide({ brand, num }: { brand: Brand; num: number }) {
           const brief = briefs[brand][pillar.key][selections[pillar.key]];
           if (!brief) return null;
           return (
-            <div key={pillar.key} className={`grid h-[93px] grid-cols-[210px_1fr] gap-6 border-b py-2 ${isBeauty ? "border-border" : "border-primary-foreground/15"}`}>
+            <div key={pillar.key} className={`grid h-[96px] grid-cols-[210px_1fr] items-center gap-8 border-b py-2 ${isBeauty ? "border-border" : "border-primary-foreground/15"}`}>
               <div>
                 <div className={`text-[18px] font-bold ${isBeauty ? "text-ggs-pink" : "text-ggs-gold"}`} style={HEAD}>{pillarName(pillar.key, brand)}</div>
                 <div className={`mt-1 text-[13px] ${isBeauty ? "text-ggs-gray" : "text-primary-foreground/65"}`}>{brief.format}</div>
               </div>
               <div>
-                <div className={`text-[19px] font-bold ${isBeauty ? "text-ggs-ink" : "text-primary-foreground"}`}>{brief.topic}</div>
+                <div className={`text-[18px] font-bold ${isBeauty ? "text-ggs-ink" : "text-primary-foreground"}`}>{brief.topic}</div>
                 <div className={`mt-0.5 text-[12px] ${isBeauty ? "text-ggs-pink" : "text-ggs-gold"}`}>
                   Layanan: {catalogService(brand, brief)?.category} · {brief.service}
                 </div>
@@ -463,24 +468,24 @@ function FlowSlide() {
       <div className="absolute top-[64px] left-[76px]">
         <Kicker color="pink">06 — ALUR PRODUKSI</Kicker>
       </div>
-      <h2 className="absolute top-[104px] left-[76px] text-[52px] font-bold text-ggs-ink" style={HEAD}>
+      <h2 className="slide-title absolute top-[104px] left-[76px] font-bold text-ggs-ink" style={HEAD}>
         Dari Brief Sampai Tayang
       </h2>
-      <div className="absolute top-[240px] left-[76px] flex items-start">
+      <div className="absolute top-[222px] left-[76px] grid w-[1128px] grid-cols-5 items-start gap-6">
         {steps.map((s, i) => (
-          <div key={s.n} className="relative flex w-[240px] flex-col gap-4">
+          <div key={s.n} className="relative flex min-w-0 flex-col gap-5">
             <div
-              className={`flex h-[64px] w-[64px] items-center justify-center rounded-full text-[20px] font-bold text-white ${i % 2 === 0 ? "bg-ggs-pink" : "bg-ggs-gold"}`}
+              className={`flex h-[48px] w-[48px] items-center justify-center rounded-full text-[17px] font-bold text-primary-foreground ${i % 2 === 0 ? "bg-ggs-pink" : "bg-ggs-gold"}`}
               style={HEAD}
             >
               {s.n}
             </div>
-            <div className="text-[20px] font-bold text-ggs-ink" style={HEAD}>
+            <div className="text-[18px] font-bold text-ggs-ink" style={HEAD}>
               {s.t}
             </div>
-            <div className="pr-4 text-[14px] leading-relaxed text-ggs-gray">{s.d}</div>
+            <div className="text-[15px] leading-[1.5] text-ggs-gray">{s.d}</div>
             {i < steps.length - 1 && (
-              <div className="absolute top-[28px] left-[72px] h-[2px] w-[174px] bg-neutral-200" />
+              <div className="absolute top-[23px] left-[64px] h-[2px] w-[152px] bg-border" />
             )}
           </div>
         ))}
