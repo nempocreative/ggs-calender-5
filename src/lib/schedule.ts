@@ -54,14 +54,14 @@ function buildSchedule(extraDays: number[], promoFirst: boolean): string[][] {
       prev = upto;
     }
   }
-  const takeVG = () => {
-    const v = counts.cine >= counts.ngobras ? "cine" : "ngobras";
+  const takeVG = (): PillarKey => {
+    const v: PillarKey = counts.cine >= counts.ngobras ? "cine" : "ngobras";
     counts[v]--;
     return v;
   };
-  const takePair = (): [string, string] => {
-    const a = counts.cine >= counts.ngobras ? "cine" : "ngobras";
-    const b = a === "cine" ? "ngobras" : "cine";
+  const takePair = (): [PillarKey, PillarKey] => {
+    const a: PillarKey = counts.cine >= counts.ngobras ? "cine" : "ngobras";
+    const b: PillarKey = a === "cine" ? "ngobras" : "cine";
     counts[a]--;
     counts[b]--;
     return [a, b];
